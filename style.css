@@ -1,12 +1,4 @@
-# palmakarsai.github.io
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Portfolio Preview — Pálma Karsai</title>
-
-    <!-- Include Paperlogy font -->
+<!-- Include Paperlogy font -->
     <style>
         @font-face {
             font-family: 'Paperlogy';
@@ -156,44 +148,3 @@
             color: rgba(33,40,66,0.7);
         }
     </style>
-</head>
-<body>
-    <div class="hero">
-        <div class="hero-left">
-            <h1 id="page-title">Pálma Karsai | Rigging Artist</h1>
-            <div class="tagline">
-                <a href="#">Work</a> • <a href="#">About</a> • <a href="#">Contact</a>
-            </div>
-            <footer>
-                Replace the name, tagline, links, and model. This is a quick preview of your palette and layout.
-            </footer>
-        </div>
-
-        <div class="hero-right">
-            <!-- 3D Model -->
-            <model-viewer src="models/EveTest.glb"
-                          alt="3D Rig Example"
-                          camera-controls
-                          disable-zoom
-                          disable-pan
-                          interaction-prompt="none"
-                          camera-target="0m 1.55m 0m"
-                          camera-orbit="30deg 0deg 1.5m"
-                          orbit-sensitivity="0.5"
-                          camera-translate="0 100 0"
-                          min-camera-orbit="auto 80deg 1.5m"
-                          max-camera-orbit="auto 80deg 1.5m"
-            </model-viewer>
-        </div>
-
-        <!--
-        <aside class="hero-right">
-          <div class="swatch" style="background:var(--teal);color:var(--cream)"><div>Teal</div><div class="dot" style="background:var(--teal)"></div></div>
-          <div class="swatch" style="background:var(--navy);color:var(--cream)"><div>Navy</div><div class="dot" style="background:var(--navy)"></div></div>
-          <div class="swatch" style="background:var(--cream);color:var(--navy);border:1px solid rgba(33,40,66,0.06)"><div>Cream</div><div class="dot" style="background:var(--cream);border:1px solid rgba(33,40,66,0.06)"></div></div>
-          <div class="swatch" style="background:var(--brown);color:var(--cream)"><div>Brown</div><div class="dot" style="background:var(--brown)"></div></div>
-        </aside>
-        -->
-    </div>
-</body>
-</html>
