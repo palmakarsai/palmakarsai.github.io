@@ -4,6 +4,156 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Portfolio Preview — Pálma Karsai</title>
+    <!-- Include Paperlogy font -->
+    <style>
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('fonts/Paperlogy-1Thin.woff2') format('woff2'), url('fonts/Paperlogy-1Thin.woff') format('woff');
+            font-weight: 100;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('fonts/Paperlogy-4Regular.woff2') format('woff2'), url('fonts/Paperlogy-4Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('fonts/Paperlogy-7Bold.woff2') format('woff2'), url('fonts/Paperlogy-7Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
+    <!-- Model Viewer library -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+    <style>
+        :root {
+            --teal: #007A78;
+            --teal-hover: #00A7A4;
+            --navy: #212842;
+            --cream: #F0E7D5;
+            --brown: #6B4F3B;
+            --brown-hover: #4A3B32;
+            --fw-strong: 700;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Paperlogy', sans-serif;
+            background: var(--cream);
+            color: var(--navy);
+            line-height: 1.35;
+        }
+
+        .hero {
+            position: relative;
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 40px;
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 2;
+            flex: 1 1 auto;
+            max-width: 50%;
+        }
+
+        .hero-right {
+            position: absolute; /* full screen behind text */
+            top: 0;
+            left: 15%;
+            width: 100vw; /* full width */
+            height: 100vh; /* full height */
+            object-position: 80% center; /* push model toward the right */
+            z-index: 1; /* behind text */
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            font-size: 44px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            color: #212842;
+        }
+
+        .tagline {
+            margin: 0 0 18px 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 600;
+        }
+
+            .tagline a {
+                text-decoration: none;
+                color: #212842;
+                transition: color 0.2s ease;
+            }
+
+                .tagline a:hover {
+                    color: #007a78;
+                }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            border: 0;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--teal);
+            color: var(--cream);
+        }
+
+            .btn-primary:hover {
+                background: var(--teal-hover);
+            }
+
+        .btn-secondary {
+            background: var(--brown);
+            color: var(--cream);
+        }
+
+            .btn-secondary:hover {
+                background: var(--brown-hover);
+            }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+        }
+
+        footer {
+            margin-top: 26px;
+            font-size: 13px;
+            color: rgba(33,40,66,0.7);
+        }
+    </style>
 </head>
 <body>
     <div class="hero">
