@@ -1,13 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-capo="" style="scroll-behavior: auto; touch-action: none;">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Palma Karsai - Technical Director</title>
     <style>
-      body { margin: 0; }
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+      }
     </style>
-    <script type="module" crossorigin src="/assets/index-Dv1owKMk.js"></script>
+    <script type="module" crossorigin src="/assets/index-BT_OWtUc.js"></script>
   </head>
-  <body>
+  <body>
+    <div class="content">
+      <p>Testy testy</p>
+      <button id="toggleTextureBtn">Switch Texture</button>
+    </div>
+
   </body>
 </html>
