@@ -51,6 +51,8 @@
         display: grid;
         width: 100%;
         height: 100%;
+
+
         grid-template-columns: repeat(12, [col-start] 1fr);
         gap: 20px;
         z-index: 1;
@@ -72,11 +74,14 @@
         .sidebar {
           grid-column: col-start 11 / span 2;
         }
-        .ads {
-          grid-column: col-start 11 / span 2;
+        .chat {
+          grid-column: col-start 10 / span 3;
+          background-color: beige;
+          grid-row: 4;
         }
         .footer {
           grid-column: col-start / span 12;
+          grid-row: 4;
           text-align: center;
           color: #F0E7D5;
         }
@@ -95,24 +100,166 @@
         pointer-events: none; /* so faded/invisible text doesn't block clicks underneath */
       }
       .view-text.active { display: block; }
+
+      .view-chat{
+        background-color: #5959595a;
+        border-radius: 8px;
+        position: fixed;
+        bottom: 5%;
+        right: 5%;
+        display: grid;
+        grid-template-rows: 80% 20%;       
+        width: 300px;
+        height: 400px;
+        padding: 20px;
+        overflow: hidden;
+        box-sizing: border-box;
+
+        transform-origin: bottom right;
+        transform: scale(0);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s ease, opacity 0.25s ease;
+      }
+
+      .view-chat.revealed {
+        transform: scale(1);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+
+
+      .chat-window {
+        grid-row: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .admin-message,
+      .chat-window .message {
+        font-size: 14px;
+        background: #e8e8e8;
+        padding: 8px 12px;
+        border-radius: 12px;
+        margin: 0;
+        align-self: flex-start;
+        opacity: 0;
+        transform: translateY(6px);
+        animation: messageIn 0.3s ease forwards;
+      }
+
+      .chat-window .message.user {
+        max-width: 65%;
+        text-wrap-style: stable;
+        font-size: 14px;
+        background: #4a90e2;
+        color: white;
+        align-self: flex-end;
+      }
+
+      @keyframes messageIn {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .compose-box {
+        display: grid;
+        grid-template-columns: 80% 20%;
+        font-size: 14px;
+        grid-row: 2;
+        background: white;
+        border-radius: 8px;
+        padding: 10px;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+      }
+      .compose-box .user-message {
+        margin: 0;
+      }
+
+      .compose-box button {
+        width: 100%; /* fills its 20% column */
+        height: 100%;
+      }
+
+      .compose-box.sent {
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+      }
+
+      .compose-text {
+        margin: 0;
+        color: #333;
+      }
     </style>
-    <script type="module" crossorigin src="/assets/index-x2g4vjob.js"></script>
+    <script type="module" crossorigin src="/assets/index-DPp0iR-p.js"></script>
   </head>
   <body>
     <div class="container">
-      <div class="ads">
-        <button id="toggleTextureBtn">Switch Texture</button>
-        <button id="toggleRenderBtn">Fix Render Issue</button>
-        <button id="toggleCharacterBtn">Fix Skinning Issue</button>
+      <div class = "view-chat" data-view="1">
+        <div class="chat-window">
+          <p>
+            Pálma Karsai - Junior TD
+          </p>
+          <p class="admin-message">
+            Hi! What can I help with?
+          </p>
+        </div>
+        <div class="compose-box" id="composeBox1">
+          <p class="user-message">
+            Hi! I'm having an issue in my scene, a texture is missing.
+          </p>
+          <button id="toggleTextureBtn">Send</button>
+        </div>
       </div>
+
+      <div class = "view-chat" data-view="2">
+        <div class="chat-window">
+          <p>
+            Pálma Karsai - Junior TD
+          </p>
+          <p class="admin-message">
+            Hi there! Another issue?
+          </p>
+        </div>
+        <div class="compose-box" id="composeBox2">
+          <p class="user-message">
+            Yes, the plane render is too slow.
+          </p>
+          <button id="toggleRenderBtn">Send</button>
+        </div>
+      </div>
+  
+      <div class = "view-chat" data-view="3">
+        <div class="chat-window">
+          <p>
+            Pálma Karsai - Junior TD
+          </p>
+          <p class="admin-message">
+            Hi again! What seems to be the problem now?
+          </p>
+        </div>
+        <div class="compose-box" id="composeBox3">
+          <p class="user-message">
+            The character in the scene is broken, just twisted around.
+          </p>
+          <button id="toggleCharacterBtn">Send</button>
+        </div>
+      </div>       
+
       <div class="footer">
         <div class="view-text" data-view="0">Scroll to explore</div>
       </div>
+
       <div class="content">
         <div class="view-text" data-view="1">Once upon a time, a little girl was born in Hungary.</div>
         <div class="view-text" data-view="2">When she grew older, she decided to try her luck in Norway.</div>
         <div class="view-text" data-view="3">She doesn't know where her journey will take her next, but she is excited about her next challenge.</div>
       </div>
+
       <div class="main">
         <div class="view-text" data-view="4" style="font-size: x-large">Hi! I'm Pálma and I help 3D artists.</div>
       </div>
