@@ -29,240 +29,395 @@
             font-display: swap;
         }
     </style>
-    <style>
-      html, body {
-            height: 100%;
-            width: 100%;
+<style>
+        :root {
+            --teal: #007A78;
+            --teal-hover: #00A7A4;
+            --navy: #212842;
+            --cream: #F0E7D5;
+            --cream-dark: #E6DAC1;
+            --brown: #6B4F3B;
+            --brown-hover: #4A3B32;
+            --fw-strong: 700;
+            --thumb-ratio: 16 / 9;      /* thumbnail shape: change to 16 / 9, 3 / 2 ... */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            min-height: 100%;
+            margin: 0;
             font-family: 'Paperlogy', sans-serif;
+            color: var(--navy);
             line-height: 1.35;
-            overflow: hidden;
-      }
+            grid-template-rows: auto auto 1fr;
+        }
 
-      canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-      }
+        /* ---------- Header (original look) ---------- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            grid-template-rows: 3.5rem;   /* fixed row height, adjust to taste */
+            gap: 0.5rem;               /* the visible gap between the borders */
+            align-items: start;           /* boxes keep their own height instead of stretching */
+            padding: 0.5rem 1rem 2rem;    /* bottom padding reserves room for the hover growth */
+        }
 
-      .container{
-        display: grid;
-        width: 100%;
-        height: 100%;
+        .title,
+        .nav a {
+            height: 3.5rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;   /* text aligned left */
+            padding: 0.5rem 0.75rem 0.5rem 0;
+            border-bottom: 2px solid black;
+        }
 
-
-        grid-template-columns: repeat(12, [col-start] 1fr);
-        gap: 20px;
-        z-index: 1;
-      }
-
-      @media (min-width: 768px) {
         .nav {
-          grid-column: col-start / span 2;
-          grid-row: 2 / 4;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);   /* three equal boxes */
+            grid-template-rows: 3.5rem;   /* same value as the header row */
+            align-items: start;           /* links keep their own height */
+            gap: 0.5rem;                             /* same gap as the header */
         }
-        .content {
-          grid-column: col-start 2 / span 5;
-          grid-row: 2 / 4;  
+
+        .nav a {
+            color: inherit;
+            text-decoration: none;
+            transition: font-size 300ms, padding 300ms, height 300ms;
         }
-         .main {
-          grid-column: col-start 4 / span 6;
-          grid-row: 2;
+
+        .nav a:hover {
+            font-size: 1.5rem;
+            height: 4.5rem;
         }
-        .sidebar {
-          grid-column: col-start 11 / span 2;
+
+        .title h1 {
+            margin: 0;                 /* removes the 8px bottom margin from your global h1 rule */
+            font-size: 1.5rem;         /* adjust to taste */
         }
-        .chat {
-          grid-column: col-start 10 / span 3;
-          background-color: beige;
-          grid-row: 4;
-        }
-        .footer {
-          grid-column: col-start / span 12;
-          grid-row: 4;
-          text-align: center;
-          color: #F0E7D5;
-        }
-        nav ul {
-          flex-direction: column;
-        }
-      }
 
-      .view-text{
-        display: none;
-        text-align: center;
-        text-wrap: balance;
-        font-size: large;
-        opacity: 0;
-        transition: opacity 0.1s linear, filter 0.1s linear; /* smooths the per-frame JS updates slightly */
-        pointer-events: none; /* so faded/invisible text doesn't block clicks underneath */
-      }
-      .view-text.active { display: block; }
-
-      .view-chat{
-        background-color: #5959595a;
-        border-radius: 8px;
-        position: fixed;
-        bottom: 5%;
-        right: 5%;
-        display: grid;
-        grid-template-rows: 80% 20%;       
-        width: 300px;
-        height: 400px;
-        padding: 20px;
-        overflow: hidden;
-        box-sizing: border-box;
-
-        transform-origin: bottom right;
-        transform: scale(0);
-        opacity: 0;
-        pointer-events: none;
-        transition: transform 0.35s ease, opacity 0.25s ease;
-      }
-
-      .view-chat.revealed {
-        transform: scale(1);
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-
-
-      .chat-window {
-        grid-row: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .admin-message,
-      .chat-window .message {
-        font-size: 14px;
-        background: #e8e8e8;
-        padding: 8px 12px;
-        border-radius: 12px;
-        margin: 0;
-        align-self: flex-start;
-        opacity: 0;
-        transform: translateY(6px);
-        animation: messageIn 0.3s ease forwards;
-      }
-
-      .chat-window .message.user {
-        max-width: 65%;
-        text-wrap-style: stable;
-        font-size: 14px;
-        background: #4a90e2;
-        color: white;
-        align-self: flex-end;
-      }
-
-      @keyframes messageIn {
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      .compose-box {
-        display: grid;
-        grid-template-columns: 80% 20%;
-        font-size: 14px;
-        grid-row: 2;
-        background: white;
-        border-radius: 8px;
-        padding: 10px;
-        flex-direction: column;
-        gap: 8px;
-        align-items: center;
-      }
-      .compose-box .user-message {
-        margin: 0;
-      }
-
-      .compose-box button {
-        width: 100%; /* fills its 20% column */
-        height: 100%;
-      }
-
-      .compose-box.sent {
-        opacity: 0;
-        transform: translateY(10px);
-        pointer-events: none;
-      }
-
-      .compose-text {
-        margin: 0;
-        color: #333;
-      }
     </style>
-    <script type="module" crossorigin src="/assets/index-Cn4fH-89.js"></script>
+    <style>
+      .welcome{
+          grid-row: 3;
+          align-self: center;                  /* vertical centre inside the tall row */
+          justify-self: center;                /* horizontal centre */
+
+          display: grid;
+          justify-items: center;               /* centre the items inside */
+          gap: 1.5rem;
+          width: min(90vw, 34rem);             /* decent box width, shrinks on phones */
+          padding: 10rem 2rem;
+          text-align: center;
+          opacity: 1;
+          transition: 500ms;
+      }
+
+      .welcome.started{
+        opacity: 0;
+      }
+      .welcometext {
+          font-size: 1.5rem;
+          margin: 0;
+      }
+
+      .start button {
+          /* strip the default button look */
+          appearance: none;
+          background: none;
+          border: 0;
+          padding: 0.25rem 0;
+          cursor: pointer;
+
+          /* same text properties as the welcome text */
+          font: inherit;              /* family, weight, line-height */
+          font-size: 1.5rem;          /* same value as .welcometext */
+          letter-spacing: inherit;
+          color: var(--navy);
+
+          position: relative;
+          transition: color 300ms;
+      }
+
+  
+      /* the underline: always there, but squashed to nothing */
+      .start button::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(to right, transparent, currentColor 20%, currentColor 80%, transparent);
+          transform: scaleX(0.25); 
+          transform-origin: center;   /* this makes it grow from the middle */
+          transition: transform 300ms;
+      }
+
+      .start button:hover,
+      .start button:focus-visible {
+          color: #fff;
+      }
+
+      .start button:hover::after,
+      .start button:focus-visible::after {
+          transform: scaleX(1);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+          .start button, .start button::after { transition: none; }
+      }
+      
+
+      .skip a{
+        font-size: 1rem;
+        color: var(--navy);
+        text-decoration: none;
+        transition: color 300ms;
+      }
+   
+      .skip a:hover{
+        color: var(--teal);
+      }
+
+    </style>
+    <style>
+     canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* One full-screen layer that sits above the canvas and lets clicks/scroll through */
+    .container {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ---------- Text ---------- */
+    .view-text {
+      display: none;
+      text-wrap: balance;
+      opacity: 0;
+      transition: opacity 0.1s linear, filter 0.1s linear;
+      pointer-events: none;
+    }
+    .view-text.active { display: block; }
+
+    /* Story: vertically centred, a bit left of centre */
+    .story {
+      position: absolute;
+      top: 40%;
+      left: 8%;
+      transform: translateY(-50%);
+      width: min(30rem, 32vw);
+      text-align: left;
+      font-size: 1.5rem;
+    }
+
+    /* Final line: dead centre */
+    .headline {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(40rem, 90vw);
+      text-align: center;
+      font-size: 2.5rem;
+    }
+
+    /* Scroll hint: low, but not at the very bottom */
+    .hint {
+      position: absolute;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: var(--cream);
+    }
+
+    /* ---------- Chat ---------- */
+    .view-chat {
+      --hidden-x: 40vw;   /* how far toward the bottom-right it starts */
+      --hidden-y: 40vh;
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300px;
+      height: 400px;
+      padding: 20px;
+      display: grid;
+      grid-template-rows: 80% 20%;
+      overflow: hidden;
+      background-color: #5959595a;
+      backdrop-filter: blur(6px);
+      border-radius: 8px;
+
+      /* hidden: shrunk and parked toward the bottom-right */
+      transform: translate(calc(-50% + var(--hidden-x)), calc(-50% + var(--hidden-y))) scale(0);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.3s ease;
+    }
+
+    /* revealed: grows while sliding into the middle of the screen */
+    .view-chat.revealed {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .chat-window {
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .admin-message,
+    .chat-window .message {
+      font-size: 14px;
+      background: #e8e8e8;
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin: 0;
+      align-self: flex-start;
+      opacity: 0;
+      transform: translateY(6px);
+      animation: messageIn 0.3s ease forwards;
+    }
+
+    .chat-window .message.user {
+      max-width: 65%;
+      background: #4a90e2;
+      color: white;
+      align-self: flex-end;
+    }
+
+    @keyframes messageIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .compose-box {
+      grid-row: 2;
+      display: grid;
+      grid-template-columns: 80% 20%;
+      gap: 8px;
+      align-items: center;
+      font-size: 14px;
+      background: white;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .compose-box .user-message { margin: 0; }
+    .compose-box button { width: 100%; height: 100%; }
+
+    .compose-box.sent {
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+    }
+
+    /* Phones: story goes to the top so it doesn't collide with the centred chat */
+    @media (max-width: 767px) {
+      .story {
+        top: 18%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85vw;
+        text-align: center;
+        font-size: 1.25rem;
+      }
+      .view-chat { width: min(300px, 90vw); }
+    }
+
+    </style>
+    <script type="module" crossorigin src="/assets/index-BiBxWJGx.js"></script>
   </head>
   <body>
+    <header class="header" id="myHeader">
+        <div class="title">
+            <h1 id="page-title">Pálma Karsai | Junior TD</h1>
+        </div>
+        <nav class="nav">
+             <a href="#">My Projects</a>
+             <a href="aboutMe.html">About Me</a>
+             <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
+        </nav>
+    </header>
+    <div class="welcome" id="welcomeBox">
+      <div class="welcometext">
+        Hi, I'm Pálma and I help 3D artists!
+      </div>
+      <div class="start">
+        <button id="startBtn">
+          Experience how I help
+        </button>
+      </div>
+      <div class="skip">
+        <a href="homepage.html">
+          or skip to my portfolio
+        </a>
+      </div>
+    </div>
     <div class="container">
-      <div class = "view-chat" data-view="1">
+
+      <div class="hint">
+        <div class="view-text" data-view="0">Scroll to explore <br> or press the up arrow</div>
+      </div>
+
+      <div class="story">
+        <div class="view-text" data-view="1">Once upon a time, a little girl was born in Hungary.</div>
+        <div class="view-text" data-view="2">When she grew older, she decided to try her luck in Norway.</div>
+        <div class="view-text" data-view="3">She doesn't know where her journey will take her next, but she is excited about her next challenge.</div>
+      </div>
+
+      <div class="headline">
+        <div class="view-text" data-view="4">Hi! I'm Pálma and I help 3D artists.</div>
+      </div>
+
+      <div class="view-chat" data-view="1">
         <div class="chat-window">
-          <p>
-            Pálma Karsai - Junior TD
-          </p>
-          <p class="admin-message">
-            Hi! What can I help with?
-          </p>
+          <p>Pálma Karsai - Junior TD</p>
+          <p class="admin-message">Hi! What can I help with?</p>
         </div>
         <div class="compose-box" id="composeBox1">
-          <p class="user-message">
-            Hi! I'm having an issue in my scene, a texture is missing.
-          </p>
+          <p class="user-message">Hi! I'm having an issue in my scene, a texture is missing.</p>
           <button id="toggleTextureBtn">Send</button>
         </div>
       </div>
 
       <div class = "view-chat" data-view="2">
         <div class="chat-window">
-          <p>
-            Pálma Karsai - Junior TD
-          </p>
-          <p class="admin-message">
-            Hi there! Another issue?
-          </p>
+          <p>Pálma Karsai - Junior TD</p>
+          <p class="admin-message">Hi there! Another issue?</p>
         </div>
         <div class="compose-box" id="composeBox2">
-          <p class="user-message">
-            Yes, the plane render is too slow.
-          </p>
+          <p class="user-message">Yes, the plane render is too slow.</p>
           <button id="toggleRenderBtn">Send</button>
         </div>
       </div>
   
       <div class = "view-chat" data-view="3">
         <div class="chat-window">
-          <p>
-            Pálma Karsai - Junior TD
-          </p>
-          <p class="admin-message">
-            Hi again! What seems to be the problem now?
-          </p>
+          <p>Pálma Karsai - Junior TD</p>
+          <p class="admin-message">Hi again! What seems to be the problem now?</p>
         </div>
         <div class="compose-box" id="composeBox3">
-          <p class="user-message">
-            The character in the scene is broken, just twisted around.
-          </p>
+          <p class="user-message">The character in the scene is broken, just twisted around.</p>
           <button id="toggleCharacterBtn">Send</button>
         </div>
-      </div>       
-
-      <div class="footer">
-        <div class="view-text" data-view="0">Scroll to explore</div>
-      </div>
-
-      <div class="content">
-        <div class="view-text" data-view="1">Once upon a time, a little girl was born in Hungary.</div>
-        <div class="view-text" data-view="2">When she grew older, she decided to try her luck in Norway.</div>
-        <div class="view-text" data-view="3">She doesn't know where her journey will take her next, but she is excited about her next challenge.</div>
-      </div>
-
-      <div class="main">
-        <div class="view-text" data-view="4" style="font-size: x-large">Hi! I'm Pálma and I help 3D artists.</div>
-      </div>
-    </div>
+      </div>       
   </body>
 </html>
