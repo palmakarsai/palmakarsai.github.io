@@ -55,6 +55,10 @@
             grid-template-rows: auto auto 1fr;
         }
 
+        body{
+          background: #bac6de;
+        }
+
         /* ---------- Header (original look) ---------- */
         .header {
             position: sticky;
@@ -99,10 +103,25 @@
 
         .title h1 {
             margin: 0;                 /* removes the 8px bottom margin from your global h1 rule */
-            font-size: 1.5rem;         /* adjust to taste */
+            font-size: 1.5rem;
+            font-weight: 400;        /* adjust to taste */
         }
 
     </style>
+
+    <style>
+      .introduction {
+            font-size: 3.5rem;
+            padding: 12rem;
+            color: #212842;
+        }
+        .introduction span
+        {
+            color: #a5657c;
+            transition: opacity 0.3s;
+        }
+    </style>
+
     <style>
       .welcome{
           grid-row: 3;
@@ -112,18 +131,22 @@
           display: grid;
           justify-items: center;               /* centre the items inside */
           gap: 1.5rem;
-          width: min(90vw, 34rem);             /* decent box width, shrinks on phones */
+          width: min(100vw, 40rem);             /* decent box width, shrinks on phones */
           padding: 10rem 2rem;
           text-align: center;
           opacity: 1;
-          transition: 500ms;
+          transition: opacity 500ms, visibility 0s linear 0s;
       }
 
-      .welcome.started{
-        opacity: 0;
+      .welcome.started {
+          opacity: 0;
+          pointer-events: none;   /* mouse and touch clicks pass through */
+          visibility: hidden;     /* removes it from keyboard focus and screen readers */
+          transition: opacity 500ms, visibility 0s linear 500ms; /* wait 500ms, then hide */
       }
+
       .welcometext {
-          font-size: 1.5rem;
+          font-size: 2rem;
           margin: 0;
       }
 
@@ -137,7 +160,7 @@
 
           /* same text properties as the welcome text */
           font: inherit;              /* family, weight, line-height */
-          font-size: 1.5rem;          /* same value as .welcometext */
+          font-size: 2rem;          /* same value as .welcometext */
           letter-spacing: inherit;
           color: var(--navy);
 
@@ -176,14 +199,14 @@
       
 
       .skip a{
-        font-size: 1rem;
+        font-size: 1.5rem;
         color: var(--navy);
         text-decoration: none;
         transition: color 300ms;
       }
    
       .skip a:hover{
-        color: var(--teal);
+        color:  #a5657c;
       }
 
     </style>
@@ -194,7 +217,16 @@
       width: 100%;
       height: 100%;
       z-index: -1;
+      filter: blur(6px);
+      transform: scale(1.05);
+      transition: filter 2s ease, transform 2s ease;
     }
+
+    canvas.started{
+      filter: blur(0px);
+      transform: scale(1);
+    }
+
 
     /* One full-screen layer that sits above the canvas and lets clicks/scroll through */
     .container {
@@ -217,8 +249,8 @@
     /* Story: vertically centred, a bit left of centre */
     .story {
       position: absolute;
-      top: 40%;
-      left: 8%;
+      top: 20%;
+      left: 12%;
       transform: translateY(-50%);
       width: min(30rem, 32vw);
       text-align: left;
@@ -241,6 +273,7 @@
       position: absolute;
       bottom: 12%;
       left: 50%;
+      font-size: 1rem;
       transform: translateX(-50%);
       text-align: center;
       color: var(--cream);
@@ -248,85 +281,173 @@
 
     /* ---------- Chat ---------- */
     .view-chat {
-      --hidden-x: 40vw;   /* how far toward the bottom-right it starts */
+      --hidden-x: 40vw;
       --hidden-y: 40vh;
+      --chat-border: 1px solid rgba(255, 255, 255, 0.2);
 
       position: absolute;
       top: 50%;
       left: 50%;
       width: 300px;
       height: 400px;
-      padding: 20px;
-      display: grid;
-      grid-template-rows: 80% 20%;
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
       background-color: #5959595a;
       backdrop-filter: blur(6px);
       border-radius: 8px;
+      color: var(--cream);
 
-      /* hidden: shrunk and parked toward the bottom-right */
       transform: translate(calc(-50% + var(--hidden-x)), calc(-50% + var(--hidden-y))) scale(0);
       opacity: 0;
       pointer-events: none;
       transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.3s ease;
     }
 
-    /* revealed: grows while sliding into the middle of the screen */
     .view-chat.revealed {
       transform: translate(-50%, -50%) scale(1);
       opacity: 1;
       pointer-events: auto;
     }
 
+    /* ---------- Name bar ---------- */
+    .chat-header {
+      margin: 0;
+      padding: 6px 12px 5px;
+      font-size: 1rem;
+      font-weight: var(--fw-strong);
+      color: #f1f1f1;
+      letter-spacing: 0.02em;
+      border-bottom: var(--chat-border);
+    }
+
+    /* ---------- Messages ---------- */
     .chat-window {
-      grid-row: 1;
+      flex: 1;
+      min-height: 0;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      padding: 12px 16px 8px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
     }
 
     .admin-message,
     .chat-window .message {
-      font-size: 14px;
-      background: #e8e8e8;
-      padding: 8px 12px;
-      border-radius: 12px;
+      position: relative;
+      max-width: 80%;
       margin: 0;
+      padding: 9px 14px 10px;
+      font-size: 14px;
+      line-height: 1.4;
+      letter-spacing: 0.005em;
+      text-wrap: pretty;
+      overflow-wrap: anywhere;
+      background: #e8e8e8;
+      color: var(--navy);
+      border-radius: 12px 12px 12px 0;      /* flat bottom-left for the tail */
       align-self: flex-start;
-      opacity: 0;
-      transform: translateY(6px);
-      animation: messageIn 0.3s ease forwards;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+      transform-origin: left bottom;
+      animation: bubbleIn 0.3s cubic-bezier(0.2, 0.9, 0.3, 1) both;
     }
 
     .chat-window .message.user {
       max-width: 65%;
-      background: #4a90e2;
-      color: white;
+      background: #5d4869;
+      color: #fff;
+      border-radius: 12px 12px 0 12px;      /* flat bottom-right */
       align-self: flex-end;
+      transform-origin: right bottom;
     }
 
-    @keyframes messageIn {
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes bubbleIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.96); }
+      to   { opacity: 1; transform: none; }
     }
 
+    /* the little spike */
+    .admin-message::after,
+    .chat-window .message::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: -6px;
+      width: 8px;
+      height: 10px;
+      background: inherit;
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
+
+    .chat-window .message.user::after {
+      left: auto;
+      right: -6px;
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+    }
+
+    /* ---------- Sent times ---------- */
+    .msg-time {
+        margin: 12px 4px 3px;
+        font-size: 10px;
+        line-height: 1;
+        letter-spacing: 0.03em;
+        font-variant-numeric: tabular-nums;           /* digits don't jiggle in width */
+        color: rgba(240, 231, 213, 0.65);             /* dimmer than the bubble text */
+        align-self: flex-start;
+        opacity: 0;
+        transform: translateY(6px);
+        animation: messageIn 0.3s ease forwards;      /* keep this keyframes block! */
+      }
+    .msg-time.user { align-self: flex-end; }
+    .chat-window > .msg-time:first-child { margin-top: 0; }
+    .msg-time:empty { visibility: hidden; }
+
+    /* ---------- Compose bar ---------- */
     .compose-box {
-      grid-row: 2;
-      display: grid;
-      grid-template-columns: 80% 20%;
-      gap: 8px;
+      display: flex;
       align-items: center;
-      font-size: 14px;
-      background: white;
-      border-radius: 8px;
-      padding: 10px;
+      gap: 8px;
+      padding: 10px 12px;
+      background: rgba(0, 0, 0, 0.18);   /* window colour, slightly darker */
+      border-top: var(--chat-border);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
-    .compose-box .user-message { margin: 0; }
-    .compose-box button { width: 100%; height: 100%; }
+
+    .compose-box .user-message {
+      flex: 1;
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.3;
+      opacity: 0.85;
+    }
+
+    .compose-box button {
+      appearance: none;
+      background: none;
+      border: 0;
+      padding: 4px;
+      display: grid;
+      place-items: center;
+      color: var(--cream);
+      cursor: pointer;
+      transition: color 300ms, transform 300ms;
+    }
+    .compose-box button svg { width: 20px; height: 20px; }
+    .compose-box button:hover,
+    .compose-box button:focus-visible {
+      color: rgb(56, 26, 58);
+      transform: translateX(2px);
+    }
 
     .compose-box.sent {
       opacity: 0;
       transform: translateY(10px);
       pointer-events: none;
+    }
+
+    @keyframes messageIn {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Phones: story goes to the top so it doesn't collide with the centred chat */
@@ -343,9 +464,20 @@
     }
 
     </style>
-    <script type="module" crossorigin src="/assets/index-BiBxWJGx.js"></script>
+    <script type="module" crossorigin src="/assets/index-B0cJ8m8V.js"></script>
   </head>
   <body>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0"
+        style="position:absolute" aria-hidden="true">
+      <symbol id="icon-send" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 2 11 13"/>
+        <path d="M22 2 15 22l-4-9-9-4 20-7z"/>
+      </symbol>
+    </svg>
+
+
     <header class="header" id="myHeader">
         <div class="title">
             <h1 id="page-title">Pálma Karsai | Junior TD</h1>
@@ -383,41 +515,126 @@
         <div class="view-text" data-view="3">She doesn't know where her journey will take her next, but she is excited about her next challenge.</div>
       </div>
 
-      <div class="headline">
-        <div class="view-text" data-view="4">Hi! I'm Pálma and I help 3D artists.</div>
-      </div>
-
       <div class="view-chat" data-view="1">
+        <p class="chat-header">Pálma Karsai - Junior TD</p>
         <div class="chat-window">
-          <p>Pálma Karsai - Junior TD</p>
+          <time class="msg-time"></time>
           <p class="admin-message">Hi! What can I help with?</p>
         </div>
         <div class="compose-box" id="composeBox1">
-          <p class="user-message">Hi! I'm having an issue in my scene, a texture is missing.</p>
-          <button id="toggleTextureBtn">Send</button>
+          <p class="user-message">Hi! I'm having an issue in my scene,<br> a texture is missing.</p>
+          <button id="toggleTextureBtn" aria-label="Send">
+            <svg><use href="#icon-send"/></svg>
+          </button>
         </div>
       </div>
 
-      <div class = "view-chat" data-view="2">
+      <div class="view-chat" data-view="2">
+        <p class="chat-header">Pálma Karsai - Junior TD</p>
         <div class="chat-window">
-          <p>Pálma Karsai - Junior TD</p>
+          <time class="msg-time"></time>
           <p class="admin-message">Hi there! Another issue?</p>
         </div>
         <div class="compose-box" id="composeBox2">
           <p class="user-message">Yes, the plane render is too slow.</p>
-          <button id="toggleRenderBtn">Send</button>
+          <button id="toggleRenderBtn" aria-label="Send">
+            <svg><use href="#icon-send"/></svg>
+          </button>
         </div>
       </div>
-  
-      <div class = "view-chat" data-view="3">
+
+      <div class="view-chat" data-view="3">
+        <p class="chat-header">Pálma Karsai - Junior TD</p>
         <div class="chat-window">
-          <p>Pálma Karsai - Junior TD</p>
+          <time class="msg-time"></time>
           <p class="admin-message">Hi again! What seems to be the problem now?</p>
         </div>
         <div class="compose-box" id="composeBox3">
           <p class="user-message">The character in the scene is broken, just twisted around.</p>
-          <button id="toggleCharacterBtn">Send</button>
+          <button id="toggleCharacterBtn" aria-label="Send">
+            <svg><use href="#icon-send"/></svg>
+          </button>
         </div>
-      </div>       
+      </div>
+       
+    <script>
+      (function () {
+        function stamp(el, date) {
+          el.dateTime = date.toISOString();
+          el.textContent = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+        }
+
+        document.querySelectorAll('.view-chat').forEach(function (win) {
+          var chat = win.querySelector('.chat-window');
+          var firstTime = chat.querySelector('.msg-time');
+
+          // first admin message: stamp the time the window first opens
+          new MutationObserver(function (_, obs) {
+            if (win.classList.contains('revealed')) {
+              stamp(firstTime, new Date());
+              obs.disconnect();
+            }
+          }).observe(win, { attributes: true, attributeFilter: ['class'] });
+
+          // messages added later by main.js: the user's message and the admin reply
+          new MutationObserver(function (records) {
+            records.forEach(function (r) {
+              r.addedNodes.forEach(function (node) {
+                if (node.nodeType !== 1) return;
+
+                var isUser  = node.classList.contains('message') && node.classList.contains('user');
+                var isAdmin = node.classList.contains('admin-message');
+                if (!isUser && !isAdmin) return;
+
+                var t = document.createElement('time');
+                t.className = 'msg-time' + (isUser ? ' user' : '');
+                stamp(t, new Date());
+                chat.insertBefore(t, node);
+              });
+            });
+            chat.scrollTop = chat.scrollHeight;   // keep the newest message in view
+          }).observe(chat, { childList: true });
+        });
+      })();
+      </script>
+
+      <div class="view-text" data-view="4">
+        <div class="introduction" >
+          Hi I'm Pálma, <br>and I love <span id="changingword"> helping others </span>
+        </div>
+      </div>
+
+      <script>
+        var currentWord = document.getElementById("changingword");
+        const words = ["helping others", "solving problems", "efficiency", "automation", "learning new software", "scripting", "Maya", "Unreal Engine", "3D animation", "3D Games"]
+        let index = 0;
+
+        const FIRST_DELAY = 10000;   // time on the first phrase (ms)
+        const INTERVAL    = 3000;    // time between later changes (ms)
+
+        function switchWord() {
+            currentWord.style.opacity = 0;
+            setTimeout(() => {
+                index = (index + 1) % words.length;
+                currentWord.textContent = words[index];
+                currentWord.style.opacity = 1;
+                setTimeout(switchWord, INTERVAL);   // schedule the next one here
+            }, 300);
+        }
+        
+         // start the countdown the first time the introduction becomes visible
+          const introView = document.querySelector('.view-text[data-view="4"]');
+          let started = false;
+
+          function startWhenVisible() {
+            if (started || !introView.classList.contains('active')) return;
+            started = true;
+            setTimeout(switchWord, FIRST_DELAY);
+          }
+
+          new MutationObserver(startWhenVisible)
+            .observe(introView, { attributes: true, attributeFilter: ['class'] });
+          startWhenVisible();   // in case it's already active when this script runs
+      </script>
   </body>
 </html>
