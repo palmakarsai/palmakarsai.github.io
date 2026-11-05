@@ -47,7 +47,8 @@
         }
 
         html, body {
-            min-height: 100%;
+            height: 100%;
+            overflow: hidden;
             margin: 0;
             font-family: 'Paperlogy', sans-serif;
             color: var(--navy);
@@ -79,7 +80,7 @@
             align-items: flex-end;
             justify-content: flex-start;   /* text aligned left */
             padding: 0.5rem 0.75rem 0.5rem 0;
-            border-bottom: 2px solid black;
+            border-bottom: 2px solid rgba(33, 40, 66, 0.7);
         }
 
         .nav {
@@ -211,7 +212,7 @@
 
     </style>
     <style>
-     canvas {
+     #scene {
       position: fixed;
       inset: 0;
       width: 100%;
@@ -222,7 +223,7 @@
       transition: filter 2s ease, transform 2s ease;
     }
 
-    canvas.started{
+    #scene.started{
       filter: blur(0px);
       transform: scale(1);
     }
@@ -464,9 +465,28 @@
     }
 
     </style>
-    <script type="module" crossorigin src="/assets/index-B0cJ8m8V.js"></script>
+    <style>
+    #renderRegion {
+      position: fixed;
+      left: 0; top: 0;
+      display: none;
+      background: #000;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;            /* above the canvas, below your chat UI */
+    }
+    #renderRegion canvas {
+      display: block;
+      width: 100%; height: 100%;
+      image-rendering: pixelated;  /* chunky noise */
+      opacity: 0;
+    }
+    </style>
+    <script type="module" crossorigin src="/assets/index-Et2ju3Xz.js"></script>
   </head>
   <body>
+
+    <div id="renderRegion"></div>
 
     <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0"
         style="position:absolute" aria-hidden="true">
