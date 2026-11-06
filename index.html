@@ -4,111 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Palma Karsai - Technical Director</title>
-    <style>
-        @font-face {
-            font-family: 'Paperlogy';
-            src: url('/assets/Paperlogy-1Thin-Dnz4PKhN.woff2') format('woff2'), url('fonts/Paperlogy-1Thin.woff') format('woff');
-            font-weight: 100;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'Paperlogy';
-            src: url('/assets/Paperlogy-4Regular-C9s4Z-f-.woff2') format('woff2'), url('fonts/Paperlogy-4Regular.woff') format('woff');
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'Paperlogy';
-            src: url('/assets/Paperlogy-7Bold-CEGq1CUZ.woff2') format('woff2'), url('fonts/Paperlogy-7Bold.woff') format('woff');
-            font-weight: 700;
-            font-style: normal;
-            font-display: swap;
-        }
-    </style>
-<style>
-        :root {
-            --teal: #007A78;
-            --teal-hover: #00A7A4;
-            --navy: #212842;
-            --cream: #F0E7D5;
-            --cream-dark: #E6DAC1;
-            --brown: #6B4F3B;
-            --brown-hover: #4A3B32;
-            --fw-strong: 700;
-            --thumb-ratio: 16 / 9;      /* thumbnail shape: change to 16 / 9, 3 / 2 ... */
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-            overflow: hidden;
-            margin: 0;
-            font-family: 'Paperlogy', sans-serif;
-            color: var(--navy);
-            line-height: 1.35;
-            grid-template-rows: auto auto 1fr;
-        }
-
-        body{
-          background: #bac6de;
-        }
-
-        /* ---------- Header (original look) ---------- */
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            display: grid;
-            grid-template-columns: 2fr 3fr;
-            grid-template-rows: 3.5rem;   /* fixed row height, adjust to taste */
-            gap: 0.5rem;               /* the visible gap between the borders */
-            align-items: start;           /* boxes keep their own height instead of stretching */
-            padding: 0.5rem 1rem 2rem;    /* bottom padding reserves room for the hover growth */
-        }
-
-        .title,
-        .nav a {
-            height: 3.5rem;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;   /* text aligned left */
-            padding: 0.5rem 0.75rem 0.5rem 0;
-            border-bottom: 2px solid rgba(33, 40, 66, 0.7);
-        }
-
-        .nav {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);   /* three equal boxes */
-            grid-template-rows: 3.5rem;   /* same value as the header row */
-            align-items: start;           /* links keep their own height */
-            gap: 0.5rem;                             /* same gap as the header */
-        }
-
-        .nav a {
-            color: inherit;
-            text-decoration: none;
-            transition: font-size 300ms, padding 300ms, height 300ms;
-        }
-
-        .nav a:hover {
-            font-size: 1.5rem;
-            height: 4.5rem;
-        }
-
-        .title h1 {
-            margin: 0;                 /* removes the 8px bottom margin from your global h1 rule */
-            font-size: 1.5rem;
-            font-weight: 400;        /* adjust to taste */
-        }
-
-    </style>
+
 
     <style>
       .introduction {
@@ -118,7 +14,7 @@
         }
         .introduction span
         {
-            color: #a5657c;
+            color: var(--pop);
             transition: opacity 0.3s;
         }
     </style>
@@ -186,7 +82,7 @@
 
       .start button:hover,
       .start button:focus-visible {
-          color: #fff;
+          color:  var(--light);
       }
 
       .start button:hover::after,
@@ -258,17 +154,6 @@
       font-size: 1.5rem;
     }
 
-    /* Final line: dead centre */
-    .headline {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(40rem, 90vw);
-      text-align: center;
-      font-size: 2.5rem;
-    }
-
     /* Scroll hint: low, but not at the very bottom */
     .hint {
       position: absolute;
@@ -277,7 +162,7 @@
       font-size: 1rem;
       transform: translateX(-50%);
       text-align: center;
-      color: var(--cream);
+      color: var(--light);
     }
 
     /* ---------- Chat ---------- */
@@ -421,6 +306,7 @@
       font-size: 13px;
       line-height: 1.3;
       opacity: 0.85;
+      color: var(--light);
     }
 
     .compose-box button {
@@ -430,11 +316,11 @@
       padding: 4px;
       display: grid;
       place-items: center;
-      color: var(--cream);
+      color: var(--light);
       cursor: pointer;
       transition: color 300ms, transform 300ms;
     }
-    .compose-box button svg { width: 20px; height: 20px; }
+    .compose-box button svg { width: 20px; height: 20px;}
     .compose-box button:hover,
     .compose-box button:focus-visible {
       color: rgb(56, 26, 58);
@@ -482,9 +368,10 @@
       opacity: 0;
     }
     </style>
-    <script type="module" crossorigin src="/assets/index-Et2ju3Xz.js"></script>
+    <script type="module" crossorigin src="/assets/index-Cqb-M02b.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-h8HCjNv5.css">
   </head>
-  <body>
+  <body class="landing">
 
     <div id="renderRegion"></div>
 
@@ -500,10 +387,10 @@
 
     <header class="header" id="myHeader">
         <div class="title">
-            <h1 id="page-title">Pálma Karsai | Junior TD</h1>
-        </div>
+            <a href="homepage.html"><h1 id="page-title">Pálma Karsai | Junior TD</h1></a>
+         </div>
         <nav class="nav">
-             <a href="#">My Projects</a>
+             <a href="Projects.html">Projects</a>
              <a href="aboutMe.html">About Me</a>
              <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
         </nav>
@@ -576,7 +463,15 @@
           </button>
         </div>
       </div>
-       
+
+      <div class="view-text" data-view="4">
+        <div class="introduction" >
+          Hi I'm Pálma, <br>and I love <span id="changingword"> helping others </span>
+        </div>
+      </div>
+      
+    </div>
+    
     <script>
       (function () {
         function stamp(el, date) {
@@ -618,43 +513,27 @@
       })();
       </script>
 
-      <div class="view-text" data-view="4">
-        <div class="introduction" >
-          Hi I'm Pálma, <br>and I love <span id="changingword"> helping others </span>
-        </div>
-      </div>
+      
 
       <script>
-        var currentWord = document.getElementById("changingword");
-        const words = ["helping others", "solving problems", "efficiency", "automation", "learning new software", "scripting", "Maya", "Unreal Engine", "3D animation", "3D Games"]
-        let index = 0;
-
-        const FIRST_DELAY = 10000;   // time on the first phrase (ms)
-        const INTERVAL    = 3000;    // time between later changes (ms)
-
-        function switchWord() {
-            currentWord.style.opacity = 0;
-            setTimeout(() => {
-                index = (index + 1) % words.length;
-                currentWord.textContent = words[index];
-                currentWord.style.opacity = 1;
-                setTimeout(switchWord, INTERVAL);   // schedule the next one here
-            }, 300);
-        }
-        
-         // start the countdown the first time the introduction becomes visible
           const introView = document.querySelector('.view-text[data-view="4"]');
           let started = false;
+          let DELAY = 8000;
 
-          function startWhenVisible() {
-            if (started || !introView.classList.contains('active')) return;
-            started = true;
-            setTimeout(switchWord, FIRST_DELAY);
+          function switchPage()
+          {
+            window.location.href = "homepage.html";
           }
 
-          new MutationObserver(startWhenVisible)
+          function switchWhenVisible() {
+            if (started || !introView.classList.contains('active')) return;
+            started = true;
+            setTimeout(switchPage, DELAY);
+          }
+
+          new MutationObserver(switchWhenVisible)
             .observe(introView, { attributes: true, attributeFilter: ['class'] });
-          startWhenVisible();   // in case it's already active when this script runs
-      </script>
+          switchWhenVisible();   // in case it's already active when this script runs
+      </script>
   </body>
 </html>

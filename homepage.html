@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="/shared.css">
+
+    <title>Junior Technical Director — Pálma Karsai</title>
+   
+    
+    <style>
+        .introduction { font-size: 4rem; padding: 10rem; color: var(--navy); }
+        .introduction span { color: var(--pop); transition: opacity 0.3s; }
+
+        .sectionTitle {
+            font-size: 3rem;
+            border-bottom: 2px solid black;
+            margin: 3rem 1rem 1rem 1rem;
+        }
+
+        .textblocks { padding: 1rem; width: 70%; }
+
+        .video-wrapper { position: relative; padding-top: 56.25%; width: 80%; margin: 0 auto; }
+        .video-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+        h3 { margin: 10px 10px 8px 0; font-size: 18px; font-weight: 400; letter-spacing: 0.02em; }
+    </style>
+</head>
+<body data-bg-view="cam4">
+    <canvas id="bg"></canvas>
+    
+    <header class="header" id="myHeader">
+        <div class="title">
+            <a href="homepage.html"><h1 id="page-title">Pálma Karsai | Junior TD</h1></a>
+         </div>
+        <nav class="nav">
+             <a href="Projects.html">Projects</a>
+             <a href="aboutMe.html">About Me</a>
+             <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
+        </nav>
+    </header>
+
+    <main class="page">
+        <div class="introduction">
+            Hi I'm Pálma, <br>and I love
+            <span id="changingword"> helping others </span>
+
+        </div>
+        <script>
+            const header = document.getElementById("myHeader");
+            function updateHeader() {
+                header.classList.toggle("stuck", window.scrollY > 0);
+            }
+            window.addEventListener("scroll", updateHeader, { passive: true });
+            updateHeader();   // also run once on load, in case the page opens already scrolled
+        </script>
+
+         <script>
+            var currentWord = document.getElementById("changingword");
+            const words = ["helping others", "solving problems", "efficiency", "automation", "learning new software", "scripting", "Maya", "Unreal Engine", "3D animation", "3D Games"]
+            let index = 0;
+
+            function switchWord() {
+                currentWord.style.opacity = 0;
+                setTimeout(() => {
+                    index = (index + 1) % words.length;
+                    currentWord.textContent = words[index];
+                    currentWord.style.opacity = 1;
+                    setTimeout(switchWord, 3000);   // schedule the next one here
+                }, 300);
+            }
+            setTimeout(switchWord, 3000);
+        </script>
+        <div class="sectionTitle">
+            My latest project
+        </div>
+        <div class="video-wrapper">
+            <iframe
+                src="https://player.vimeo.com/video/1240219414?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                title="Production 3 - Breakdown Reel">
+            </iframe>
+        </div>
+        <script src="https://player.vimeo.com/api/player.js"></script>
+
+        <div class="sectionTitle">
+            How do I work?
+        </div>
+        <div class="textblocks">
+             <h3>
+                <p>
+                Redoing things or grinding through repetitive manual work was never for me.  It quickly drains my motivation, and I tend to slow down as soon as that feeling sets in. More often, I'd rather spend the time finding a better way: researching a faster approach or scripting a quick tool, so the next similar task takes a fraction of the time.
+                </p>
+                <p>
+                I bring this same mindset to collaboration, asking the right questions early on with clients and directors to ensure I’m building exactly what they envision. With artists, I focus on understanding the root of the problem before offering technical guidance. On projects of my own, I always look into what could go wrong, and make my early choices accordingly.
+                </p>
+                <p>
+                None of this makes me immune to getting stuck, but it does mean I usually notice early, and I'd rather ask an "obvious" question than guess wrong and redo the work later. These traits make me a good technical director, but there's more to why I chose this path.
+                </p>
+            </h3>
+        </div>
+
+        <div class="sectionTitle">
+            Why technical directing?
+        </div>
+        <div class="textblocks">
+              <h3>
+                <p>
+                    Figuring out what I wanted to do took some time. Each step of my path so far, I genuinely enjoyed, I just kept feeling like it wasn't quite the role that suited me best. 
+
+                </p>
+                <p>
+                    In high school, I was in a media and film class and thought I'd become an editor. I still enjoy editing, but I always felt like I wanted to do more with it. This feeling pulled me toward VFX and 3D art, but the CG program I hoped to join wasn't running that year, so I enrolled in a games course instead. I'd already written a bit of code before, but it was there that I properly picked up programming, alongside modeling, rigging, and Unity, skills that later made it much easier to pick up Unreal Engine as an alternative rendering engine on projects. 
+                </p>
+                <p>
+                    The following year, I switched to the CG program at Nord University. Around this time, I also became a Teacher Assistant helping out CG and Games students with their rigging and technical difficulities. At this time I assumed I'd end up a 3D generalist, but quickly found I liked rigging more than anything else. When I started building a rigging-focused portfolio, though, I realized how much I had to leave out: solving technical problems, all the different softwares I learned, all the other aspects of 3D animation I liked. Looking back, every one of my paths — editing, games, CG, rigging, being a Teachers Assistant — had taught me something different, and picking up each new piece of software along the way is probably what made me good at picking up the next one. In every team project I was part of, I ended up being the one who handled the technical side and helped others work through it.
+                </p>
+                <p>
+                   When we assigned roles on projects, "technical director" was never actually one of the options, but whenever I described the kind of technical help I'd be doing, one of my teachers started noting me down as the TD anyway. I never took it too seriously, though; it felt like too big a title for what I was actually doing. It was a conversation with a different teacher that changed that: he reassured me that what I'd been doing throughout every project at university genuinely was pipeline TD work, I just hadn't put a name to it. I'd avoided the term "technical director" for a long time, assuming it meant leading people and giving orders, which never felt like me. But I came to realize directing is really about guiding people and helping them work through problems, which is exactly what I love doing. So after a long search, I'm proud to say I'm a technical director. 
+                </p>
+
+            </h3>
+        </div>
+        <script src="/header.js"></script>
+       <script type="module" src="/bg-scene.js"></script>
+    </main>
+</body>
+</html>

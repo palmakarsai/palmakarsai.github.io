@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Junior Technical Director — Pálma Karsai</title>
+
+    <style>
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('fonts/Paperlogy-1Thin.woff2') format('woff2'), url('fonts/Paperlogy-1Thin.woff') format('woff');
+            font-weight: 100;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('fonts/Paperlogy-4Regular.woff2') format('woff2'), url('fonts/Paperlogy-4Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('fonts/Paperlogy-7Bold.woff2') format('woff2'), url('fonts/Paperlogy-7Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
+    <style>
+        :root {
+            --teal: #007A78;
+            --teal-hover: #00A7A4;
+            --navy: #212842;
+            --cream: #F0E7D5;
+            --brown: #6B4F3B;
+            --brown-hover: #4A3B32;
+            --fw-strong: 700;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Paperlogy', sans-serif;
+            background: var(--cream);
+            color: var(--navy);
+            line-height: 1.35;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--cream);
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            grid-template-rows: 3.5rem;   /* fixed row height, adjust to taste */
+            gap: 0.5rem;               /* the visible gap between the borders */
+            align-items: start;           /* boxes keep their own height instead of stretching */
+            padding: 0.5rem 1rem 2rem;    /* bottom padding reserves room for the hover growth */
+        }
+
+        .title,
+        .nav a {
+            height: 3.5rem; 
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;   /* text aligned left */
+            padding: 0.5rem 0.75rem 0.5rem 0;
+            border-bottom: 2px solid black;
+        }
+
+        .nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);   /* three equal boxes */
+            grid-template-rows: 3.5rem;   /* same value as the header row */
+            align-items: start;           /* links keep their own height */
+            gap: 0.5rem;                             /* same gap as the header */
+        }
+
+        .nav a {
+            color: inherit;
+            text-decoration: none;
+            transition: font-size 300ms, padding 300ms, height 300ms;
+        }
+
+        .nav a:hover {
+            font-size: 1.5rem;
+            height: 4.5rem;
+        }
+
+        .title h1 {
+            margin: 0;                 /* removes the 8px bottom margin from your global h1 rule */
+            font-size: 1.5rem;         /* adjust to taste */
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 2fr 5fr;
+            align-items: start;  /* children keep their own height */
+            
+        }
+        .sidebar{
+            display: grid;
+            grid-auto-rows: 4rem;  
+            gap: 1rem;
+            margin: 1rem;
+            position: sticky;
+            top: 6rem;
+
+        }
+        .sidebar a {
+            position: relative;            /* the p is positioned against the link */
+            height: 4rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 0.5rem 0.75rem 0.5rem 0;
+            border-bottom: 2px solid black;
+            color: inherit;
+            text-decoration: none;
+            transition: font-size 300ms, height 300ms;
+        }
+
+        .sidebar a:hover {
+            font-size: 1.5rem;
+            height: 4.5rem;
+        }
+
+        .sidebar p {
+            position: absolute;
+            top: 100%;                     /* starts at the bottom edge, under the border */
+            right: 0;                      /* right side of the box */
+            margin: 0.25rem 0 0;
+            font-size: 0.8rem;             /* use px/rem so it doesn't scale with the hovered link */
+            font-style: italic;
+            text-align: right;
+            white-space: nowrap;
+
+            opacity: 0;
+            transform: translateY(-0.5rem);   /* starts slightly up, tucked against the border */
+            pointer-events: none;
+            transition: opacity 300ms, transform 300ms;
+        }
+
+        .sidebar a:hover p {
+            opacity: 1;
+            transform: translateY(0);         /* slides down into place */
+        }
+
+        .textblocks {
+            padding: 2rem;
+        }
+    
+        .footer {
+          height: 20%;
+        }
+
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #212842;
+            margin: 0 0 0.1rem;    /* no bottom space */
+            line-height: 1.1;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: -0.02em;
+            color: #212842;
+            margin: 0;
+
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 200;
+            letter-spacing: 0.02em;
+            color: #212842;
+        }
+
+
+        footer {
+            margin-top: 26px;
+            font-size: 13px;
+            color: rgba(33,40,66,0.7);
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="myHeader">
+        <div class="title">
+            <h1 id="page-title">Pálma Karsai | Junior TD</h1>
+        </div>
+        <nav class="nav">
+             <a href="#">My Work</a>
+             <a href="aboutMe.html">About Me</a>
+             <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <div class="sidebar">
+            <a href="prod3.html">
+                <span>Production 3</span>
+                <p>Technical Directing in Practice</p>
+            </a>
+            <a href="excited.html">
+                <span>ExcITed Workshops</span>
+                <p>Being a teacher assistant and a team lead</p>
+            </a>
+            <a href="3Dspace.html">
+                <span>3D Space</span>
+                <p>Creating a 3D modeling educational game</p>
+            </a>
+            <a href="prod2.html">
+                <span>Production 2</span>
+                <p>Face It, HAVET, DACCHIE</p>
+            </a>
+            <a href="prod1.html">
+                <span>Production 1</span>
+                <p>My first 3D animation short</p>
+            </a>
+            <a href="pb4p.html">
+                <span>Pencils Before Pixels</span>
+                <p>Drawing Workshops in VR</p>
+            </a>
+        </div>
+       <div class="textblocks">
+           <h1>
+               3D Space - 3D modeling educational game
+           </h1>
+           <h2>
+               Prototype made for Excited Summer Jobs in 2024
+           </h2>
+           <h3>
+               3D Space is an interactive learning game prototype designed to help first-year students at Nord University understand the fundamentals of 3D modelling. The idea came from noticing how often students struggled with basic concepts and terminology when starting to work in 3D software. We wanted to create a resource they could use before to learn the basics and then alongside their classes to look up unfamiliar terms, find solutions to their issues.
+           </h3>
+           <iframe frameborder="0" src="https://itch.io/embed-upload/20258868?color=333333" allowfullscreen="" width="640" height="380"><a href="https://chersie.itch.io/3d-space">Play 3D Space on itch.io</a></iframe>
+           <h3>
+                Henrik and I developed the project as part of the ExcITEd Summer Jobs programme, after submitting a proposal and being selected for a paid summer project under contract. <br>
+
+                We initially planned to develop a mobile app, but abandoned the idea early on because neither of us had an iPhone to test an iOS version. Developing only for Android would have excluded a chunk of students, so we decided to develop a browser-based version using Unity WebGL instead. This also meant students could access it on university computers without installing additional software. To keep the scope manageable, we focused on Maya rather than creating separate Maya and Blender versions, as Maya was the software taught at Nord. <br>
+
+                Henrik focused mainly on programming and interaction design, while I took responsibility for research, learning content and much of the visual design. Before developing the content, I conducted a small survey asking students about their difficulties when getting started with 3D. I also drew on my own experience supporting students as a Teaching Assistant. Based on this, I planned the learning content and wrote all the text, including explanations, speech bubbles, dictionary entries and practical troubleshooting guides. <br>
+
+                I designed the game's space environment and UI, created the 3D spaceship and screen elements in Maya, and made looping animations in After Effects to visually demonstrate concepts such as moving, rotating and scaling objects along different axes. I also recorded and edited short demonstrations in Maya, which were incorporated into the learning experience to show practical workflows that were harder to explain through text alone. <br>
+
+                The game was built around NEVET, a small mascot who guides users through the material. The completed first chapter introduced users to creating basic shapes and manipulating them in 3D space. It covered transformation tools, axes, Maya shortcuts, entering precise values and working with pivot points. The explanations were accompanied by visual demonstrations and interactive exercises where users could practice what they had learned, such as moving, rotating and scaling a cube. The menu also included a dictionary of 3D terminology and a tips-and-tricks section with step-by-step solutions to common Maya problems. <br>
+
+                During development, we had to design different interactions for different learning tasks rather than relying on a single system. Developing for WebGL also brought challenges we had not encountered with our previous Windows builds, particularly with video playback. I took on scripting to implement the video content and resolve issues with its integration. <br>
+
+                We tested the prototype and used the feedback to make improvements. One user mentioned that, as someone who is colorblind, the color-coding of the transformation controls did not help them distinguish the axes. In response, we added X, Y and Z labels next to the controls so users would not have to rely on color alone. We could not find a similarly clear way to display the labels during rotation, so that part remained unresolved. Other feedback also revealed that some instructions were difficult to follow while performing the exercises, giving us areas to improve in how we presented information during interaction. Our testing was limited, however, and we only had one or two testers without previous experience using 3D software, so we could not fully evaluate the experience with its intended audience. <br>
+
+                Although we originally planned to develop two chapters, we completed the first and I also wrote the full script for the second, which covered manipulating mesh components such as vertices, edges and faces. We created an early prototype of the interaction for connecting points to form faces, but did not implement the remaining exercises needed to complete the chapter. <br>
+
+                Looking back, I would approach the division and coordination of work somewhat differently. We planned our workloads around our availability from the beginning: I committed to around 16 hours per week, while Henrik planned to work around 30 hours per week. Our responsibilities were divided accordingly, but the difference in pace sometimes meant that my content, designs and 3D assets became dependencies he had to wait for. With the experience I have gained since then, I would take on more of the scripting and development myself, allowing Henrik to focus more on interaction design and look development. I would still enjoy taking responsibility for the research and teaching content. The project also taught me to be more aware of scope, particularly how much work is involved when every new concept requires its own explanations, visuals and interactions.
+
+           </h3>
+       </div>
+       
+    </main>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!-- palmakarsai.github.io -->
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Junior Technical Director — Pálma Karsai</title>
+
+    <style>
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('fonts/Paperlogy-1Thin.woff2') format('woff2'), url('fonts/Paperlogy-1Thin.woff') format('woff');
+            font-weight: 100;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('fonts/Paperlogy-4Regular.woff2') format('woff2'), url('fonts/Paperlogy-4Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('fonts/Paperlogy-7Bold.woff2') format('woff2'), url('fonts/Paperlogy-7Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
+    <style>
+        :root {
+            --teal: #007A78;
+            --teal-hover: #00A7A4;
+            --navy: #212842;
+            --cream: #F0E7D5;
+            --brown: #6B4F3B;
+            --brown-hover: #4A3B32;
+            --fw-strong: 700;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Paperlogy', sans-serif;
+            background: var(--cream);
+            color: var(--navy);
+            line-height: 1.35;
+        }
+        .sticky {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          z-index: 1;
+          background: var(--cream);
+        }
+
+
+        .header {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            grid-template-rows: 3.5rem;   /* fixed row height, adjust to taste */
+            gap: 0.5rem;               /* the visible gap between the borders */
+            align-items: start;           /* boxes keep their own height instead of stretching */
+            padding: 0.5rem 1rem 2rem;    /* bottom padding reserves room for the hover growth */
+        }
+
+        .title,
+        .nav a {
+            height: 3.5rem; 
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;   /* text aligned left */
+            padding: 0.5rem 0.75rem 0.5rem 0;
+            border-bottom: 2px solid black;
+        }
+
+        .nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);   /* three equal boxes */
+            grid-template-rows: 3.5rem;   /* same value as the header row */
+            align-items: start;           /* links keep their own height */
+            gap: 0.5rem;                             /* same gap as the header */
+        }
+
+        .nav a {
+            color: inherit;
+            text-decoration: none;
+            transition: font-size 300ms, padding 300ms, height 300ms;
+        }
+
+        .nav a:hover {
+            font-size: 1.5rem;
+            height: 4.5rem;
+        }
+
+        .title h1 {
+            margin: 0;                 /* removes the 8px bottom margin from your global h1 rule */
+            font-size: 1.5rem;         /* adjust to taste */
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 2fr 5fr;
+            
+        }
+        .sidebar{
+            display: grid;
+            grid-template-rows: repeat(6, 1fr);  
+            align-items: start;           /* links keep their own height */
+            gap: 1rem;
+            margin: 1rem;
+
+        }
+        .sidebar a {
+            position: relative;            /* the p is positioned against the link */
+            height: 4rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 0.5rem 0.75rem 0.5rem 0;
+            border-bottom: 2px solid black;
+            color: inherit;
+            text-decoration: none;
+            transition: font-size 300ms, height 300ms;
+        }
+
+        .sidebar a:hover {
+            font-size: 1.5rem;
+            height: 4.5rem;
+        }
+
+        .sidebar p {
+            position: absolute;
+            top: 100%;                     /* starts at the bottom edge, under the border */
+            right: 0;                      /* right side of the box */
+            margin: 0.25rem 0 0;
+            font-size: 0.8rem;             /* use px/rem so it doesn't scale with the hovered link */
+            font-style: italic;
+            text-align: right;
+            white-space: nowrap;
+
+            opacity: 0;
+            transform: translateY(-0.5rem);   /* starts slightly up, tucked against the border */
+            pointer-events: none;
+            transition: opacity 300ms, transform 300ms;
+        }
+
+        .sidebar a:hover p {
+            opacity: 1;
+            transform: translateY(0);         /* slides down into place */
+        }
+
+        .textblocks {
+            padding: 2rem;
+        }
+    
+        .footer {
+          height: 20%;
+        }
+
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #212842;
+            margin: 0 0 0.1rem;    /* no bottom space */
+            line-height: 1.1;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: -0.02em;
+            color: #212842;
+            margin: 0;
+
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 200;
+            letter-spacing: 0.02em;
+            color: #212842;
+        }
+
+
+        footer {
+            margin-top: 26px;
+            font-size: 13px;
+            color: rgba(33,40,66,0.7);
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="myHeader">
+        <div class="title">
+            <h1 id="page-title">Pálma Karsai | Junior TD</h1>
+        </div>
+        <nav class="nav">
+             <a href="#">My Work</a>
+             <a href="aboutMe.html">About Me</a>
+             <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
+        </nav>
+    </header>
+    <script>
+        window.onscroll = function() {headerFloat()};
+
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+
+        function headerFloat() {
+          if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+          } else {
+            header.classList.remove("sticky");
+          }
+        }
+    </script>
+    <main class="content">
+        <div class="sidebar">
+            <a href="prod3.html">
+                <span>Production 3</span>
+                <p>Technical Directing in Practice</p>
+            </a>
+            <a href="excited.html">
+                <span>ExcITed Workshops</span>
+                <p>Being a teacher assistant and a team lead</p>
+            </a>
+            <a href="3Dspace.html">
+                <span>3D Space</span>
+                <p>Creating a 3D modeling educational game</p>
+            </a>
+            <a href="prod2.html">
+                <span>Production 2</span>
+                <p>Face It, HAVET, DACCHIE</p>
+            </a>
+            <a href="prod1.html">
+                <span>Production 1</span>
+                <p>My first 3D animation short</p>
+            </a>
+            <a href="pb4p.html">
+                <span>Pencils Before Pixels</span>
+                <p>Drawing Workshops in VR</p>
+            </a>
+        </div>
+       <div class="textblocks">
+           <h1>
+               Production 1 - My first 3D short 
+           </h1>
+           <h2>
+               My coursework during the 2024 Spring Semester
+           </h2>
+           <h3>
+               Talk about Prod 1, what you learned, reflections, realizations.
+           </h3>
+           <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1240849876?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Where Do Lost Balloons Go? - Short Animation 2024"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+           <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1240864054?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Production1_Showreel"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+       </div>
+       
+    </main>
+</body>
+</html>
