@@ -1,0 +1,187 @@
+/* ================= shared.css: loaded by every page except the landing page ================= */
+
+/* ---------- Fonts (url paths are relative to this file, so keep it in the site root) ---------- */
+@font-face {
+    font-family: 'Paperlogy';
+    src: url('fonts/Paperlogy-1Thin.woff2') format('woff2'), url('fonts/Paperlogy-1Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Paperlogy';
+    src: url('fonts/Paperlogy-4Regular.woff2') format('woff2'), url('fonts/Paperlogy-4Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Paperlogy';
+    src: url('fonts/Paperlogy-7Bold.woff2') format('woff2'), url('fonts/Paperlogy-7Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ---------- Variables ---------- */
+:root {
+
+    --navy: #212842;
+    --light: #F0E7D5;
+    --pop: #a5657c;
+    --hover: #6B4F3B;
+    --bg: #bac6de;
+
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Paperlogy', sans-serif;
+    color: var(--navy);
+    line-height: 1.35;
+}
+
+/* cream goes on <html> only. A background on <body> would paint over the background canvas. */
+html { background: var(--bg); }
+
+/* the window itself doesn't scroll: header on top, .page scrolls below it */
+body {
+    height: 100dvh;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+}
+
+/* ---------- Background canvas + readability veil ---------- */
+#bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(240, 231, 213, 0);   /* cream veil: 0 = scene exactly as on the landing page */
+    z-index: -1;
+}
+
+/* ---------- Scrolling area under the header ---------- */
+.page {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    outline: none;
+    /* content fades out softly under the header instead of being cut */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 0.2rem);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 0.2rem);
+}
+
+/* ---------- Header (same look, shrinks when .compact is added by header.js) ---------- */
+
+.header {
+    --box: 3.5rem;
+    position: relative;
+    z-index: 10;
+    background: none;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: var(--box);
+    gap: 0.5rem;
+    align-items: start;
+    padding: 0.5rem 1rem 1.25rem;          /* bottom padding reserves room for the hover growth */
+    transition: grid-template-rows 300ms, padding 300ms;
+}
+.header.compact { 
+    --box: 2.5rem;
+    padding: 0.25rem 1rem 0.25rem;
+}
+
+.title,
+.nav a {
+    height: var(--box);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0.5rem 0.75rem 0.5rem 0;
+    border-bottom: 2px solid rgba(33, 40, 66, 0.7);
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    white-space: nowrap;                 /* never wraps while growing */
+    transform-origin: left bottom;       /* grows up and to the right from the underline */
+    transition: transform 300ms, font-size 300ms;
+}
+.header.compact .title h1 { font-size: 1.2rem; }
+
+.title a { color: inherit; text-decoration: none; }
+
+.title { transition: height 300ms; }
+
+.title:hover,
+.title:focus-within {
+    height: calc(var(--box) + 1rem);
+}
+
+.title:hover h1,
+.title:focus-within h1 {
+    transform: scale(1.2);               /* same effect as 1.5rem to 1.8rem */
+}
+
+@media (max-width: 700px) {
+    .title h1 { white-space: normal; }   /* on phones let it wrap instead of overflowing */
+}
+
+/* when the header is shrunk, keep the same proportions */
+.header.compact .title:hover h1,
+.header.compact .title:focus-within h1 {
+    font-size: 1.4rem;
+}
+
+.nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: var(--box);
+    align-items: start;
+    gap: 0.5rem;
+    transition: grid-template-rows 300ms;
+}
+.nav a {
+    color: inherit;
+    text-decoration: none;
+    transition: font-size 300ms, height 300ms;
+}
+.nav a:hover,
+.nav a:focus-visible {
+    font-size: 1.5rem;
+    height: calc(var(--box) + 1rem);    /* grows by 1rem, also while the header is shrunk */
+}
+
+@media (max-width: 700px) {
+    .header { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .nav { grid-template-rows: auto; }
+    .title, .nav a { height: auto; min-height: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .header, .nav, .title h1, .nav a { transition: none; }
+    .page { scroll-behavior: auto; }
+}
+
+body.landing {
+    display: block;
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+}
+body.landing::before { display: none; }       /* no cream veil over the scene */
