@@ -48,6 +48,14 @@ html, body {
 /* cream goes on <html> only. A background on <body> would paint over the background canvas. */
 html { background: var(--bg); }
 
+html::-webkit-scrollbar {
+  width: 10px;                     /* required, this activates the custom scrollbar */
+}
+
+html::-webkit-scrollbar-track {
+  background: #36303c4e;           /* your translucent track */
+}
+
 /* the window itself doesn't scroll: header on top, .page scrolls below it */
 body {
     height: 100dvh;
@@ -80,7 +88,9 @@ body::before {
     /* content fades out softly under the header instead of being cut */
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 0.2rem);
     mask-image: linear-gradient(to bottom, transparent 0, #000 0.2rem);
+    scrollbar-color:var(--navy) transparent;
 }
+
 
 /* ---------- Header (same look, shrinks when .compact is added by header.js) ---------- */
 
