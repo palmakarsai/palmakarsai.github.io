@@ -1,0 +1,307 @@
+/* ================= /work/shared_workpages.css =================
+   Layout for every project page. Load AFTER /shared.css.
+   Colours are defaults; each page overrides them in its own :root. */
+
+:root {
+    --s1: 0.5rem;
+    --s2: 1rem;
+    --s3: 2rem;
+    --s4: 4rem;
+    --s5: 6rem;
+
+    --wrap: 72rem;
+    --text: 40rem;
+    --gutter: var(--s3);
+
+    /* per-page palette (override these) */
+    --highlight: #ffa74f;
+    --highlight-hover: #f8d8b9;
+    --font: #bac6de;     /* text on the card */
+    --card: #7c6f91;
+}
+
+body {
+    font-size: 1.05rem;
+    line-height: 1.65;
+}
+
+/* shared.css masks .page, which turns it into a backdrop root and kills main's blur */
+.page {
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+/* ---------- Main column ---------- */
+main {
+    width: min(100% - 2 * var(--gutter), var(--wrap) - 2 * var(--gutter));
+    margin: 0 auto;
+    padding: var(--s3) var(--s3) var(--s5);
+    background: rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+
+/* ---------- Type ---------- */
+.back {
+    display: inline-block;
+    margin-bottom: var(--s3);
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--highlight);
+    transition: 300ms;
+}
+.back:hover { color: var(--light); }
+
+h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: 0 0 var(--s2);
+    max-width: var(--text);
+}
+
+.intro { max-width: 46rem; margin-top: var(--s2); }
+.lead  { margin: 0; font-size: 1.2rem; line-height: 1.6; }
+
+section p { max-width: var(--text); margin: 0 0 var(--s2); }
+
+/* ---------- Banner + card ---------- */
+.banner {
+    --banner-h: clamp(24rem, 40vh, 28rem);
+    display: block;
+    position: relative;
+    padding: 0 0 0 1rem;
+}
+.banner img {
+    height: var(--banner-h);
+    object-fit: cover;
+    width: 100%;
+}
+
+.banner::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;          /* top, left, right = 0; height set below */
+    height: var(--banner-h);
+    background: var(--card);
+    mix-blend-mode: color;     /* recolours the image with the card's hue */
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.banner-title {
+    position: relative;
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+.banner-card {
+    margin-top: calc(-1 * var(--s5));   /* rises into the image */
+    padding: var(--s3);
+    background: var(--card);
+    color: var(--font);
+}
+.banner-card .back { margin-bottom: var(--s2); }
+.banner-card h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin: 0 0 var(--s1);
+}
+.subtitle { font-size: 1.25rem; margin: 0; }
+
+.facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: var(--s2) var(--s3);
+    margin: var(--s2) 0 0;
+    padding: var(--s2) 0 0;
+    border-top: 1px solid rgba(33, 40, 66, 0.25);
+}
+.facts dt {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--highlight);
+    margin-bottom: 0.15rem;
+}
+.facts dd { margin: 0; font-size: 0.95rem; line-height: 1.35; }
+
+/* ---------- Game embed (only used on pages with .hero) ---------- */
+.hero {
+    margin: var(--s4) 0 var(--s3);
+    background: var(--card);
+    aspect-ratio: 16 / 9;
+    max-height: 38rem;
+}
+.hero iframe { display: block; width: 100%; height: 100%; border: 0; }
+.hero .poster {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--s1);
+    border: 0;
+    padding: var(--s2);
+    background: var(--card);
+    color: var(--font);
+    font: inherit;
+    cursor: pointer;
+}
+.hero .play {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: var(--highlight);
+    display: grid;
+    place-items: center;
+    transition: background 200ms;
+}
+.hero .poster:hover .play { background: var(--navy); }
+.hero .tri {
+    width: 0;
+    height: 0;
+    margin-left: 0.3rem;
+    border-style: solid;
+    border-width: 0.75rem 0 0.75rem 1.25rem;
+    border-color: transparent transparent transparent var(--card);
+}
+.hero .poster-title { font-size: 1.3rem; font-weight: 700; }
+.hero .poster-note  { font-size: 0.85rem; }
+.hero.playing .poster { display: none; }
+
+/* ---------- Sections: heading left, content right ---------- */
+section {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    column-gap: var(--s4);
+    margin-top: var(--s5);
+}
+section:first-of-type { margin-top: var(--s4); }
+section > h2 { grid-column: 1; grid-row: 1; margin: 0; max-width: none; }
+section > *:not(h2) { grid-column: 2; }
+
+/* ---------- Media ---------- */
+figure { margin: 0; }
+figure img, figure video { display: block; width: 100%; height: auto; }
+
+figcaption {
+    font-size: 0.85rem;
+    margin-top: var(--s1);
+    max-width: var(--text);
+    opacity: 0.8;
+}
+
+/* small single image beside the text (e.g. a mascot) */
+section > figure.single {
+    grid-column: 1;
+    width: min(100%, 20rem);
+    margin: var(--s3) 0;
+}
+
+/* image groups: span both columns = full width of main */
+.media {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--s2);
+    margin: var(--s2) 0 var(--s3);
+}
+.media.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.media.auto   { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+
+.shot img { display: block; width: 100%; height: auto; }
+.media.cols-2 .shot img,
+.media.auto .shot img { aspect-ratio: 16 / 9; object-fit: cover; }  /* "contain" if cropping hurts */
+.shot.wide img { aspect-ratio: 21 / 9; object-fit: cover; }
+
+/* ---------- Callout + reflection ---------- */
+.callout {
+    max-width: var(--text);
+    margin: var(--s3) 0;
+    padding: var(--s2) 0 var(--s2) var(--s2);
+    border-left: 4px solid var(--highlight);
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.45;
+}
+.reflection {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100%;
+    max-width: var(--text);
+    padding: var(--s3);
+    background: color-mix(in srgb, var(--card) 50%, transparent);
+}
+.reflection h2 { margin-top: 0; }
+.reflection p:last-child { margin-bottom: 0; }
+
+/* ---------- Previous / next ---------- */
+.pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s3);
+    margin-top: var(--s5);
+    padding-top: var(--s3);
+    border-top: 2px solid var(--navy);
+}
+.pager a { display: block; color: var(--navy); text-decoration: none; }
+.pager .dir  { font-size: 0.9rem; opacity: 0.7; }
+.pager .name { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; }
+.pager a:hover .name { color: var(--highlight); }
+.pager .next { text-align: right; }
+
+/* ---------- More projects ---------- */
+.more { margin-top: var(--s4); }
+.more h2 { font-size: 1.2rem; max-width: none; }
+.more-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: var(--s3) var(--s2);
+}
+.more-list a { display: block; color: var(--navy); text-decoration: none; }
+.more-list .thumb {
+    aspect-ratio: 4 / 3;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px dashed rgba(33, 40, 66, 0.4);   /* placeholder until real thumbnails */
+    margin-bottom: var(--s1);
+}
+.more-list .name { font-weight: 700; display: block; }
+.more-list a:hover .name { color: var(--highlight); }
+
+.all-work {
+    display: inline-block;
+    margin-top: var(--s3);
+    font-weight: 700;
+    color: var(--highlight-hover);
+    text-decoration: none;
+}
+.all-work:hover { color: var(--highlight); text-decoration: underline; }
+
+footer {
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding: var(--s3);
+    font-size: 0.85rem;
+    color: rgba(33, 40, 66, 0.7);
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 700px) {
+    :root { --gutter: var(--s2); }
+    main { padding: var(--s2) var(--s2) var(--s4); }
+    section { grid-template-columns: minmax(0, 1fr); row-gap: 0; margin-top: var(--s4); }
+    section > h2,
+    section > *:not(h2) { grid-column: 1; grid-row: auto; }
+    section > h2 { margin-bottom: var(--s2); }
+    .media.cols-2 { grid-template-columns: 1fr; }
+    .media.auto   { grid-template-columns: 1fr 1fr; }
+    .hero { aspect-ratio: 4 / 3; }
+    .banner-card { margin-top: calc(-1 * var(--s4)); padding: var(--s2); }
+    .pager { grid-template-columns: 1fr; }
+    .pager .next { text-align: left; }
+}
