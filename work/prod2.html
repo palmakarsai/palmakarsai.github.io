@@ -1,271 +1,185 @@
-<!-- palmakarsai.github.io -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Junior Technical Director — Pálma Karsai</title>
+    <title>Production 2 — Pálma Karsai | Junior TD</title>
+
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="stylesheet" href="/work/shared_workpages.css">
 
     <style>
-        @font-face {
-            font-family: 'Paperlogy';
-            src: url('fonts/Paperlogy-1Thin.woff2') format('woff2'), url('fonts/Paperlogy-1Thin.woff') format('woff');
-            font-weight: 100;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'Paperlogy';
-            src: url('fonts/Paperlogy-4Regular.woff2') format('woff2'), url('fonts/Paperlogy-4Regular.woff') format('woff');
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'Paperlogy';
-            src: url('fonts/Paperlogy-7Bold.woff2') format('woff2'), url('fonts/Paperlogy-7Bold.woff') format('woff');
-            font-weight: 700;
-            font-style: normal;
-            font-display: swap;
-        }
-    </style>
-
-    <style>
+        /* palette for this project only */
         :root {
-            --teal: #007A78;
-            --teal-hover: #00A7A4;
-            --navy: #212842;
-            --cream: #F0E7D5;
-            --brown: #6B4F3B;
-            --brown-hover: #4A3B32;
-            --fw-strong: 700;
+            --highlight: #fdf5ea;
+            --highlight-hover: #444d67;
+            --font: #1e2b44;
+            --card: #8b9eb6;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-family: 'Paperlogy', sans-serif;
-            background: var(--cream);
-            color: var(--navy);
-            line-height: 1.35;
-        }
-        .sticky {
-          position: fixed;
-          top: 0;
-          width: 100%;
-          z-index: 1;
-          background: var(--cream);
-        }
-
-
-        .header {
-            display: grid;
-            grid-template-columns: 2fr 3fr;
-            grid-template-rows: 3.5rem;   /* fixed row height, adjust to taste */
-            gap: 0.5rem;               /* the visible gap between the borders */
-            align-items: start;           /* boxes keep their own height instead of stretching */
-            padding: 0.5rem 1rem 2rem;    /* bottom padding reserves room for the hover growth */
-        }
-
-        .title,
-        .nav a {
-            height: 3.5rem; 
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;   /* text aligned left */
-            padding: 0.5rem 0.75rem 0.5rem 0;
-            border-bottom: 2px solid black;
-        }
-
-        .nav {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);   /* three equal boxes */
-            grid-template-rows: 3.5rem;   /* same value as the header row */
-            align-items: start;           /* links keep their own height */
-            gap: 0.5rem;                             /* same gap as the header */
-        }
-
-        .nav a {
-            color: inherit;
-            text-decoration: none;
-            transition: font-size 300ms, padding 300ms, height 300ms;
-        }
-
-        .nav a:hover {
-            font-size: 1.5rem;
-            height: 4.5rem;
-        }
-
-        .title h1 {
-            margin: 0;                 /* removes the 8px bottom margin from your global h1 rule */
-            font-size: 1.5rem;         /* adjust to taste */
-        }
-        .content {
-            display: grid;
-            grid-template-columns: 2fr 5fr;
-            
-        }
-        .sidebar{
-            display: grid;
-            grid-template-rows: repeat(6, 1fr);  
-            align-items: start;           /* links keep their own height */
-            gap: 1rem;
-            margin: 1rem;
-
-        }
-        .sidebar a {
-            position: relative;            /* the p is positioned against the link */
-            height: 4rem;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;
-            padding: 0.5rem 0.75rem 0.5rem 0;
-            border-bottom: 2px solid black;
-            color: inherit;
-            text-decoration: none;
-            transition: font-size 300ms, height 300ms;
-        }
-
-        .sidebar a:hover {
-            font-size: 1.5rem;
-            height: 4.5rem;
-        }
-
-        .sidebar p {
-            position: absolute;
-            top: 100%;                     /* starts at the bottom edge, under the border */
-            right: 0;                      /* right side of the box */
-            margin: 0.25rem 0 0;
-            font-size: 0.8rem;             /* use px/rem so it doesn't scale with the hovered link */
-            font-style: italic;
-            text-align: right;
-            white-space: nowrap;
-
-            opacity: 0;
-            transform: translateY(-0.5rem);   /* starts slightly up, tucked against the border */
-            pointer-events: none;
-            transition: opacity 300ms, transform 300ms;
-        }
-
-        .sidebar a:hover p {
-            opacity: 1;
-            transform: translateY(0);         /* slides down into place */
-        }
-
-        .textblocks {
-            padding: 2rem;
-        }
-    
-        .footer {
-          height: 20%;
-        }
-
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            color: #212842;
-            margin: 0 0 0.1rem;    /* no bottom space */
-            line-height: 1.1;
-        }
-        
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            font-style: italic;
-            letter-spacing: -0.02em;
-            color: #212842;
-            margin: 0;
-
-        }
-
-        h3 {
-            font-size: 1rem;
-            font-weight: 200;
-            letter-spacing: 0.02em;
-            color: #212842;
-        }
-
-
-        footer {
-            margin-top: 26px;
-            font-size: 13px;
-            color: rgba(33,40,66,0.7);
+     
+        .media.auto .shot img {
+            aspect-ratio: auto;
+            object-fit: contain;
+            height: auto;
         }
     </style>
 </head>
-<body>
+<body data-bg-view="cam4">
+    <canvas id="bg"></canvas>
+
     <header class="header" id="myHeader">
         <div class="title">
-            <h1 id="page-title">Pálma Karsai | Junior TD</h1>
-        </div>
+            <a href="/homepage.html"><h1 id="page-title">Pálma Karsai | Junior TD</h1></a>
+         </div>
         <nav class="nav">
-             <a href="#">My Work</a>
-             <a href="aboutMe.html">About Me</a>
-             <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
+            <a href="/Projects.html">Projects</a>
+            <a href="/homepage.html#about">About Me</a>
+            <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
         </nav>
     </header>
-    <script>
-        window.onscroll = function() {headerFloat()};
 
-        var header = document.getElementById("myHeader");
-        var sticky = header.offsetTop;
-
-        function headerFloat() {
-          if (window.pageYOffset > sticky) {
-            header.classList.add("sticky");
-          } else {
-            header.classList.remove("sticky");
-          }
-        }
-    </script>
-    <main class="content">
-        <div class="sidebar">
-            <a href="prod3.html">
-                <span>Production 3</span>
-                <p>Technical Directing in Practice</p>
-            </a>
-            <a href="excited.html">
-                <span>ExcITed Workshops</span>
-                <p>Being a teacher assistant and a team lead</p>
-            </a>
-            <a href="3Dspace.html">
-                <span>3D Space</span>
-                <p>Creating a 3D modeling educational game</p>
-            </a>
-            <a href="prod2.html">
-                <span>Production 2</span>
-                <p>Face It, HAVET, DACCHIE</p>
-            </a>
-            <a href="prod1.html">
-                <span>Production 1</span>
-                <p>My first 3D animation short</p>
-            </a>
-            <a href="pb4p.html">
-                <span>Pencils Before Pixels</span>
-                <p>Drawing Workshops in VR</p>
-            </a>
+    <div class="page">
+        <div class="banner">
+            <picture>
+                <img src="banners/Prod2_banner.png" width="2100" height="800"
+                     alt="Banner for Production 1">
+            </picture>
+            <div class="banner-title">
+                <div class="banner-card">
+                    <a class="back" href="/Projects.html">← All projects</a>
+                    <h1>Production 2</h1>
+                    <p class="subtitle">The semester of Motion Capture</p>
+                    <dl class="facts">
+                        <div>
+                            <dt>Role</dt>
+                            <dd>Motion Capture TD, Rigger, TD, Compositor, Rendering, Editor</dd>
+                        </div>
+                        <div>
+                            <dt>Team</dt>
+                            <dd>Face It: Team of 4 <br> DACCHIE: Team of 3 <br> HAVET: Team of 7</dd>
+                        </div>
+                        <div>
+                            <dt>Timeline</dt>
+                            <dd>Spring semester 2025</dd>
+                        </div>
+                        <div>
+                            <dt>Tools</dt>
+                            <dd>XSense MoCap suit and software, Motion Builder, Maya, Nuke, Premiere Pro, After Effects, Unreal Engine</dd>
+                        </div>
+                        <div>
+                            <dt>Status</dt>
+                            <dd>Finished</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
         </div>
-       <div class="textblocks">
-           <h1>
-               Production 2 - Various projects
-           </h1>
-           <h2>
-               My coursework during 2025 Spring Semester
-           </h2>
-           <h3>
-               Talk about Prod 2, what you learned, reflections, realizations.
-           </h3>
-           <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1240850560?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="FaceIT - Short Animation 2025"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-           <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1240860272?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Production2_Showreel"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-       </div>
-       
-    </main>
+
+        <main>
+            <div class="intro">
+                <p class="lead"> This semester, I worked on three very different animation projects.</p>
+                <p></p>
+            </div>
+
+            <h2>Face It</h2>
+            <p>Our own animated short film about Pau, who faces his biggest fear: going down an escalator. It was our first festival submission and was selected for Minimalen 2026.</p>
+            <figure class="video">
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/1240850560?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="fullscreen" title="Production 3 breakdown reel"></iframe>
+                </div>
+            </figure>
+      
+        <section>
+            <h2>The Land in the Middle</h2>
+            <p> An animation created as part of DACCHE (Digital Action on Climate Change with Heritage Environments), an international project exploring how digital storytelling can raise awareness of climate change and its impact on cultural landscapes and heritage;</p>
+            <a href="https://youtu.be/s5oyrpQKDko?si=J0uqfaxNVHkVbt5c&t=124" target="_blank"> Watch the video about the project here.</a>
+        </section>
+
+        <section>
+            <h2>HAVET</h2>
+            <p>A 20-minute fulldome animation accompanying composer Hilmar Thórdarson's live concert at the Trondheim Planetarium during Kamfest 2025 (Trondheim Kammermusikkfestival).</p>
+            <div class="media auto">
+                    <figure class="shot">
+                        <img src="pictures/HAVET1.jpg" alt="Moving an object along an axis">
+                        <figcaption>Photos by: Kristian Wanvik/@kamfest</figcaption>
+                    </figure>
+                    
+                    <figure class="shot">
+                        <img src="pictures/HAVET2.jpg" alt="...">
+                    </figure>
+                    <figure class="shot">
+                        <img src="pictures/HAVET3.jpg" alt="How the originpoint works">
+                    </figure>
+                </div>
+        </section>
+
+        <section>
+            <h2>Motion Capture</h2>
+            <p>I was trusted with handling the motion capture recordings for both The Land in the Middle and HAVET. The DACCHE project served as my introduction to the process. I was tasked with recording short animation clips that the director couldn't find on Mixamo.</p>
+            <p>Using the university's Xsens motion capture suit and MANUS gloves, I familiarised myself with the equipment through independent research and guidance from a Games student with previous experience. I learned about sensor placement, potential signal interference, accurately measuring the actor and setting up the corresponding digital skeleton. After directing the recording sessions, I experimented with different export settings to find the most suitable way to deliver the animations.</p>
+            <p>For HAVET, we took on a much larger challenge, recording three sequences ranging from three to seven minutes. These involved extended walks, pushing, pulling, struggling and even simulating floating.</p>
+            <p>The longer sequences required multiple takes and extensive cleanup. I helped prepare the recordings for this process by figuring out the Xsens-to-MotionBuilder workflow, testing suitable settings and researching solutions whenever the cleanup artist encountered difficulties. I also handled the final retargeting of the cleaned animations in Unreal Engine.</p>
+        </section>
+
+        <section>
+            <h2>Cloth Simulation</h2>
+            <p>I worked on the cloth simulation for HAVET alongside another team member, taking responsibility for most of the implementation. Since neither of us had extensive experience with cloth simulation, it involved quite a bit of experimentation.</p>
+            <p>We initially attempted to set up the simulation in Unreal Engine, but the results didn't meet the director's expectations. My teammate suggested switching to Marvelous Designer, where I continued developing the simulation.</p>
+            <p>This brought its own challenges. The director wanted a flowy dress, but its relatively short design meant that unwanted parts of the character were frequently exposed during movement. The character also moved through a zero-gravity environment, alternating between floating and normal gravity. This made it particularly difficult to achieve natural-looking cloth movement while keeping the dress in place.</p>
+            <p>Through experimentation and adjustments to the simulation, I eventually achieved a result that satisfied the director.</p>
+        </section>
+
+        <section>
+            <h2>Octopus Rig</h2>
+            <p>For HAVET, I was also tasked with creating an octopus rig, which was my first experience with animal rigging. The highly organic nature of the character presented some unique challenges. I drew inspiration from a stretchy cable technique I had learned previously, adapting it to work for both the tentacles and the head. This was also my first time scripting small helper tools to speed up my workflow. Rather than repeating the same setup steps for each tentacle, I wrote a simple script to automate parts of the process. Once I had established a working method, I could apply it to the remaining tentacles much more efficiently.</p>
+            <figure class="video">
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/1145800847?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="fullscreen" title="Rigging Showreel 2025 - Pálma Karsai"></iframe>
+                </div>
+        </figure>
+        <p></p>
+        <p></p>
+        </section>
+        
+        <p>I'm currently working on this page, but until I'm done, here is some of what I worked on in video form:</p>
+         <figure class="video">
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/1240860272?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="fullscreen" title="Production 3 breakdown reel"></iframe>
+                </div>
+        </figure>
+
+         <nav class="pager" aria-label="Previous and next project">
+            <a class="prev" href="3Dspace.html" rel="prev">
+                <span class="dir">← Previous project</span>
+                <span class="name">3D space</span>
+            </a>
+            <a class="next" href="prod1.html" rel="next"> 
+                <span class="name">Production 1</span>
+                <span class="dir">Next project →</span>
+            </a>
+        </nav>
+
+        <aside class="more" aria-labelledby="more-title">
+            <h2 id="more-title">More projects</h2>
+            <ul class="more-list">
+                
+            </ul>
+            <a class="all-work" href="/Projects.html">See all projects</a>
+        </aside>
+
+
+        </main>
+        <footer class="site-footer">
+            <p class="looking">Open to junior technical director and rigging roles.</p>
+            <nav class="footer-links" aria-label="Footer">
+                <a href="mailto:palma.v.karsai@gmail.com">Email</a>
+                <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">LinkedIn</a>
+            </nav>
+            <p class="copy"> <span id="year">2026</span> Pálma Karsai</p>
+        </footer>
+    </div>
+
+    <script src="/header.js"></script>
 </body>
 </html>

@@ -71,6 +71,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -2;
+    background: #9fb8d9 url("/banners/bg_pc.webp") center / cover no-repeat;
 }
 body::before {
     content: "";
@@ -82,6 +83,7 @@ body::before {
 
 /* ---------- Scrolling area under the header ---------- */
 .page {
+    padding-left: var(--sbw, 0px);
     overflow-y: auto;
     scroll-behavior: smooth;
     outline: none;
@@ -110,6 +112,10 @@ body::before {
 .header.compact { 
     --box: 2.5rem;
     padding: 0.25rem 1rem 0.25rem;
+}
+.header,
+.header.compact {
+    padding-inline: calc(1rem + var(--sbw, 0px));
 }
 
 .title,
@@ -148,8 +154,12 @@ body::before {
     transform: scale(1.2);               /* same effect as 1.5rem to 1.8rem */
 }
 
+
 @media (max-width: 700px) {
+    #bg { background-image: url("/banners/bg_mobile.webp"); }
+
     .title h1 { white-space: normal; }   /* on phones let it wrap instead of overflowing */
+    
 }
 
 /* when the header is shrunk, keep the same proportions */

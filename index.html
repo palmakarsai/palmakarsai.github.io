@@ -146,10 +146,10 @@
     /* Story: vertically centred, a bit left of centre */
     .story {
       position: absolute;
-      top: 20%;
-      left: 12%;
+      top: 40%;
+      left: 7%;
       transform: translateY(-50%);
-      width: min(30rem, 32vw);
+      width: min(34rem, 32vw);
       text-align: left;
       font-size: 1.5rem;
     }
@@ -225,7 +225,7 @@
       max-width: 80%;
       margin: 0;
       padding: 9px 14px 10px;
-      font-size: 14px;
+      font-size: 0.8rem;
       line-height: 1.4;
       letter-spacing: 0.005em;
       text-wrap: pretty;
@@ -240,7 +240,7 @@
     }
 
     .chat-window .message.user {
-      max-width: 65%;
+      max-width: 75%;
       background: #5d4869;
       color: #fff;
       border-radius: 12px 12px 0 12px;      /* flat bottom-right */
@@ -303,7 +303,7 @@
     .compose-box .user-message {
       flex: 1;
       margin: 0;
-      font-size: 13px;
+      font-size: 0.8rem;
       line-height: 1.3;
       opacity: 0.85;
       color: var(--light);
@@ -369,8 +369,8 @@
       opacity: 0;
     }
     </style>
-    <script type="module" crossorigin src="/assets/index-BZTEE39H.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BkXzUemC.css">
+    <script type="module" crossorigin src="/assets/index-D4D-tHmP.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CRFrNN8N.css">
   </head>
   <body class="landing">
 
@@ -388,12 +388,12 @@
 
     <header class="header" id="myHeader">
         <div class="title">
-            <a href="homepage.html"><h1 id="page-title">Pálma Karsai | Junior TD</h1></a>
+            <a href="/homepage.html"><h1 id="page-title">Pálma Karsai | Junior TD</h1></a>
          </div>
         <nav class="nav">
-             <a href="Projects.html">Projects</a>
-             <a href="aboutMe.html">About Me</a>
-             <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
+            <a href="/Projects.html">Projects</a>
+            <a href="/homepage.html#about">About Me</a>
+            <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
         </nav>
     </header>
     <div class="welcome" id="welcomeBox">
@@ -417,20 +417,25 @@
         <div class="view-text" data-view="0">Scroll to explore <br> or press the up arrow</div>
       </div>
 
-      <div class="story">
-        <div class="view-text" data-view="1">Once upon a time, a little girl was born in Hungary.</div>
-        <div class="view-text" data-view="2">When she grew older, she decided to try her luck in Norway.</div>
-        <div class="view-text" data-view="3">She doesn't know where her journey will take her next, but she is excited about her next challenge.</div>
+      <div class="story" style="top: 35%;">
+        <div class="view-text" data-view="1" >This is the story of a girl whose journey began in Hungary.</div>
       </div>
+      <div  class="story" style="top: 60%;">
+        <div class="view-text" data-view="2" >As she grew older, curiosity led her north, all the way to Norway, where she set out to study 3D animation.</div>
+      </div>
+      <div  class="story" style="left: 15%;">
+        <div class="view-text" data-view="3" >She may not know where the road leads next, but she's always ready for a new challenge.</div>
+      </div>
+
 
       <div class="view-chat" data-view="1">
         <p class="chat-header">Pálma Karsai - Junior TD</p>
         <div class="chat-window">
           <time class="msg-time"></time>
-          <p class="admin-message">Hi! What can I help with?</p>
+          <p class="admin-message">Hi! What can I help you with?</p>
         </div>
         <div class="compose-box" id="composeBox1">
-          <p class="user-message">Hi! I'm having an issue in my scene,<br> a texture is missing.</p>
+          <p class="user-message">Hey! I'm having a bit of trouble with my scene. <br> One of the textures seems to be missing.</p>
           <button id="toggleTextureBtn" aria-label="Send">
             <svg><use href="#icon-send"/></svg>
           </button>
@@ -441,10 +446,10 @@
         <p class="chat-header">Pálma Karsai - Junior TD</p>
         <div class="chat-window">
           <time class="msg-time"></time>
-          <p class="admin-message">Hi there! Another issue?</p>
+          <p class="admin-message">Hi there! Ran into another issue?</p>
         </div>
         <div class="compose-box" id="composeBox2">
-          <p class="user-message">Yes, the plane render is too slow.</p>
+          <p class="user-message">Yes! My plane render is taking forever. Is there anything you can do to speed it up?</p>
           <button id="toggleRenderBtn" aria-label="Send">
             <svg><use href="#icon-send"/></svg>
           </button>
@@ -454,11 +459,10 @@
       <div class="view-chat" data-view="3">
         <p class="chat-header">Pálma Karsai - Junior TD</p>
         <div class="chat-window">
-          <time class="msg-time"></time>
-          <p class="admin-message">Hi again! What seems to be the problem now?</p>
+          
         </div>
         <div class="compose-box" id="composeBox3">
-          <p class="user-message">The character in the scene is broken, just twisted around.</p>
+          <p class="user-message">Hey Pálma! Do you have a moment? I think I've broken my character rig. It's twisted around..</p>
           <button id="toggleCharacterBtn" aria-label="Send">
             <svg><use href="#icon-send"/></svg>
           </button>

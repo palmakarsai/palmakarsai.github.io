@@ -69,10 +69,23 @@ section p { max-width: var(--text); margin: 0 0 var(--s2); }
 /* ---------- Banner + card ---------- */
 .banner {
     --banner-h: clamp(24rem, 40vh, 28rem);
+    --edge: 1rem;                                 /* same as the header's side padding */
     display: block;
     position: relative;
-    padding: 0 0 0 1rem;
+    width: calc(100% - 2 * var(--edge));          /* 1rem gap on both sides */
+    margin: 0 auto;
+    padding: 0;
 }
+
+.banner-title {
+    position: relative;
+    /* equals main's width, even though the banner is now wider than main */
+    width: min(100% - 2 * (var(--gutter) - var(--edge)), var(--wrap) - 2 * var(--gutter));
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
 .banner img {
     height: var(--banner-h);
     object-fit: cover;
@@ -90,12 +103,6 @@ section p { max-width: var(--text); margin: 0 0 var(--s2); }
     pointer-events: none;
 }
 
-.banner-title {
-    position: relative;
-    max-width: var(--wrap);
-    margin: 0 auto;
-    padding: 0 var(--gutter);
-}
 .banner-card {
     margin-top: calc(-1 * var(--s5));   /* rises into the image */
     padding: var(--s3);
@@ -114,11 +121,11 @@ section p { max-width: var(--text); margin: 0 0 var(--s2); }
 
 .facts {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     gap: var(--s2) var(--s3);
     margin: var(--s2) 0 0;
     padding: var(--s2) 0 0;
-    border-top: 1px solid rgba(33, 40, 66, 0.25);
+    border-top: 1px solid var(--font);
 }
 .facts dt {
     font-size: 0.85rem;
@@ -193,6 +200,8 @@ figcaption {
     max-width: var(--text);
     opacity: 0.8;
 }
+.video-wrapper { position: relative; aspect-ratio: 16 / 9;}
+.video-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0;  margin: 2rem 0 2rem 0; }
 
 /* small single image beside the text (e.g. a mascot) */
 section > figure.single {
@@ -217,6 +226,28 @@ section > figure.single {
 .shot.wide img { aspect-ratio: 21 / 9; object-fit: cover; }
 
 /* ---------- Callout + reflection ---------- */
+/* in shared_workpages.css */
+.takeaway {
+    max-width: var(--text);
+    margin: var(--s3) 0 var(--s2);
+    padding: 0 0 0.6rem;
+    
+}
+
+.takeaway .label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--highlight);
+    border-bottom: 2px solid var(--highlight);
+}
+.takeaway p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
 .callout {
     max-width: var(--text);
     margin: var(--s3) 0;
@@ -236,6 +267,10 @@ section > figure.single {
 }
 .reflection h2 { margin-top: 0; }
 .reflection p:last-child { margin-bottom: 0; }
+
+.recap ul { margin: 0; padding-left: 1.2rem; max-width: var(--text); }
+.recap li { margin-bottom: var(--s1); }
+.recap a { color: var(--highlight); }
 
 /* ---------- Previous / next ---------- */
 .pager {
@@ -263,12 +298,35 @@ section > figure.single {
     grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
     gap: var(--s3) var(--s2);
 }
-.more-list a { display: block; color: var(--navy); text-decoration: none; }
+.more-list a { display: block; color: var(--navy); text-decoration: none;  position: relative; }
+.more-list li { min-width: 0; }            /* stops a wide image from stretching its grid column */
+
+.more-list { --more-ratio: 5 / 3; }
+
 .more-list .thumb {
-    aspect-ratio: 4 / 3;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px dashed rgba(33, 40, 66, 0.4);   /* placeholder until real thumbnails */
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--more-ratio);
+    object-fit: cover;
     margin-bottom: var(--s1);
+}
+
+/* the tint sits over the image only, not over the name and description */
+.more-list a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    aspect-ratio: var(--more-ratio);
+    background: color-mix(in srgb, var(--bg) 30%, transparent);
+    pointer-events: none;
+    transition: opacity 300ms;
+}
+
+.more-list a:hover::after,
+.more-list a:focus-visible::after {
+    opacity: 0;
 }
 .more-list .name { font-weight: 700; display: block; }
 .more-list a:hover .name { color: var(--highlight); }
@@ -282,13 +340,23 @@ section > figure.single {
 }
 .all-work:hover { color: var(--highlight); text-decoration: underline; }
 
-footer {
+.site-footer {
     max-width: var(--wrap);
     margin: 0 auto;
-    padding: var(--s3);
-    font-size: 0.85rem;
-    color: rgba(33, 40, 66, 0.7);
+    padding: var(--s3) var(--s3) var(--s4);
+    font-size: 0.9rem;
 }
+.site-footer .looking { margin: 0 0 var(--s2); font-size: 1.1rem; }
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s1) var(--s3);
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--highlight);   /* your underline theme again */
+}
+.footer-links a { color: inherit; text-decoration: none; }
+.footer-links a:hover { color: var(--highlight); }
+.site-footer .copy { margin: var(--s2) 0 0; opacity: 0.7; }
 
 /* ---------- Mobile ---------- */
 @media (max-width: 700px) {

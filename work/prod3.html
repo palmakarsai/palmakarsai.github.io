@@ -1,269 +1,251 @@
-<!-- palmakarsai.github.io -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Junior Technical Director — Pálma Karsai</title>
+    <title>Production 3 — Pálma Karsai | Junior TD</title>
+
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="stylesheet" href="/work/shared_workpages.css">
 
     <style>
-        @font-face {
-            font-family: 'Paperlogy';
-            src: url('fonts/Paperlogy-1Thin.woff2') format('woff2'), url('fonts/Paperlogy-1Thin.woff') format('woff');
-            font-weight: 100;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'Paperlogy';
-            src: url('fonts/Paperlogy-4Regular.woff2') format('woff2'), url('fonts/Paperlogy-4Regular.woff') format('woff');
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'Paperlogy';
-            src: url('fonts/Paperlogy-7Bold.woff2') format('woff2'), url('fonts/Paperlogy-7Bold.woff') format('woff');
-            font-weight: 700;
-            font-style: normal;
-            font-display: swap;
-        }
-    </style>
-
-    <style>
+        /* palette for this project only */
         :root {
-            --teal: #007A78;
-            --teal-hover: #00A7A4;
-            --navy: #212842;
-            --cream: #F0E7D5;
-            --brown: #6B4F3B;
-            --brown-hover: #4A3B32;
-            --fw-strong: 700;
+            --highlight: #d87966;
+            --highlight-hover: #444d67;
+            --font: #bac6de;
+            --card: #444d67;
         }
 
-        * {
-            box-sizing: border-box;
+        .media.auto {
+            grid-column: 2;
         }
 
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-family: 'Paperlogy', sans-serif;
-            background: var(--cream);
-            color: var(--navy);
-            line-height: 1.35;
-        }
-        .sticky {
-          position: fixed;
-          top: 0;
-          width: 100%;
-          z-index: 1;
-          background: var(--cream);
-        }
-
-
-        .header {
-            display: grid;
-            grid-template-columns: 2fr 3fr;
-            grid-template-rows: 3.5rem;   /* fixed row height, adjust to taste */
-            gap: 0.5rem;               /* the visible gap between the borders */
-            align-items: start;           /* boxes keep their own height instead of stretching */
-            padding: 0.5rem 1rem 2rem;    /* bottom padding reserves room for the hover growth */
-        }
-
-        .title,
-        .nav a {
-            height: 3.5rem; 
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;   /* text aligned left */
-            padding: 0.5rem 0.75rem 0.5rem 0;
-            border-bottom: 2px solid black;
-        }
-
-        .nav {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);   /* three equal boxes */
-            grid-template-rows: 3.5rem;   /* same value as the header row */
-            align-items: start;           /* links keep their own height */
-            gap: 0.5rem;                             /* same gap as the header */
-        }
-
-        .nav a {
-            color: inherit;
-            text-decoration: none;
-            transition: font-size 300ms, padding 300ms, height 300ms;
-        }
-
-        .nav a:hover {
-            font-size: 1.5rem;
-            height: 4.5rem;
-        }
-
-        .title h1 {
-            margin: 0;                 /* removes the 8px bottom margin from your global h1 rule */
-            font-size: 1.5rem;         /* adjust to taste */
-        }
-        .content {
-            display: grid;
-            grid-template-columns: 2fr 5fr;
-            
-        }
-        .sidebar{
-            display: grid;
-            grid-template-rows: repeat(6, 1fr);  
-            align-items: start;           /* links keep their own height */
-            gap: 1rem;
-            margin: 1rem;
-
-        }
-        .sidebar a {
-            position: relative;            /* the p is positioned against the link */
-            height: 4rem;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;
-            padding: 0.5rem 0.75rem 0.5rem 0;
-            border-bottom: 2px solid black;
-            color: inherit;
-            text-decoration: none;
-            transition: font-size 300ms, height 300ms;
-        }
-
-        .sidebar a:hover {
-            font-size: 1.5rem;
-            height: 4.5rem;
-        }
-
-        .sidebar p {
-            position: absolute;
-            top: 100%;                     /* starts at the bottom edge, under the border */
-            right: 0;                      /* right side of the box */
-            margin: 0.25rem 0 0;
-            font-size: 0.8rem;             /* use px/rem so it doesn't scale with the hovered link */
-            font-style: italic;
-            text-align: right;
-            white-space: nowrap;
-
-            opacity: 0;
-            transform: translateY(-0.5rem);   /* starts slightly up, tucked against the border */
-            pointer-events: none;
-            transition: opacity 300ms, transform 300ms;
-        }
-
-        .sidebar a:hover p {
-            opacity: 1;
-            transform: translateY(0);         /* slides down into place */
-        }
-
-        .textblocks {
-            padding: 2rem;
-        }
-    
-        .footer {
-          height: 20%;
-        }
-
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            color: #212842;
-            margin: 0 0 0.1rem;    /* no bottom space */
-            line-height: 1.1;
-        }
-        
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            font-style: italic;
-            letter-spacing: -0.02em;
-            color: #212842;
-            margin: 0;
-
-        }
-
-        h3 {
-            font-size: 1rem;
-            font-weight: 200;
-            letter-spacing: 0.02em;
-            color: #212842;
-        }
-
-
-        footer {
-            margin-top: 26px;
-            font-size: 13px;
-            color: rgba(33,40,66,0.7);
+        .media.auto .shot img {
+            aspect-ratio: auto;
+            object-fit: contain;
+            height: auto;
         }
     </style>
 </head>
-<body>
+<body data-bg-view="cam4">
+    <canvas id="bg"></canvas>
+
     <header class="header" id="myHeader">
         <div class="title">
-            <h1 id="page-title">Pálma Karsai | Junior TD</h1>
-        </div>
+            <a href="/homepage.html"><h1 id="page-title">Pálma Karsai | Junior TD</h1></a>
+         </div>
         <nav class="nav">
-             <a href="#">My Work</a>
-             <a href="aboutMe.html">About Me</a>
-             <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
+            <a href="/Projects.html">Projects</a>
+            <a href="/homepage.html#about">About Me</a>
+            <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
         </nav>
     </header>
-    <script>
-        window.onscroll = function() {headerFloat()};
 
-        var header = document.getElementById("myHeader");
-        var sticky = header.offsetTop;
-
-        function headerFloat() {
-          if (window.pageYOffset > sticky) {
-            header.classList.add("sticky");
-          } else {
-            header.classList.remove("sticky");
-          }
-        }
-    </script>
-    <main class="content">
-        <div class="sidebar">
-            <a href="prod3.html">
-                <span>Production 3</span>
-                <p>Technical Directing in Practice</p>
-            </a>
-            <a href="excited.html">
-                <span>ExcITed Workshops</span>
-                <p>Being a teacher assistant and a team lead</p>
-            </a>
-            <a href="3Dspace.html">
-                <span>3D Space</span>
-                <p>Creating a 3D modeling educational game</p>
-            </a>
-            <a href="prod2.html">
-                <span>Production 2</span>
-                <p>Face It, HAVET, DACCHIE</p>
-            </a>
-            <a href="prod1.html">
-                <span>Production 1</span>
-                <p>My first 3D animation short</p>
-            </a>
-            <a href="pb4p.html">
-                <span>Pencils Before Pixels</span>
-                <p>Drawing Workshops in VR</p>
-            </a>
+    <div class="page">
+        <div class="banner">
+            <picture>
+                <img src="banners/Prod3_banner.png" width="2100" height="800"
+                     alt="Banner for Production 3">
+            </picture>
+            <div class="banner-title">
+                <div class="banner-card">
+                    <a class="back" href="/Projects.html">← All projects</a>
+                    <h1>Production 3</h1>
+                    <p class="subtitle">Exploring Technical Direction</p>
+                    <dl class="facts">
+                        <div>
+                            <dt>Role</dt>
+                            <dd>Scripting in Python, Research, TD, Software Developer</dd>
+                        </div>
+                        <div>
+                            <dt>Team</dt>
+                            <dd>One person project, but interacted with many other students</dd>
+                        </div>
+                        <div>
+                            <dt>Timeline</dt>
+                            <dd>Spring semester 2026</dd>
+                        </div>
+                        <div>
+                            <dt>Tools</dt>
+                            <dd>Maya, Python, QT designer</dd>
+                        </div>
+                        <div>
+                            <dt>Status</dt>
+                            <dd>Finished</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
         </div>
-       <div class="textblocks">
-           <h1>
-               Production 3 - Technical Directing in Practice
-           </h1>
-           <h2>
-               My coursework during 2026 Spring Semester
-           </h2>
-           <h3>
-               Talk about Prod 3, what you learned, reflections, realizations.
-           </h3>
-       </div>
-       
-    </main>
+
+        <main>
+            <div class="intro">
+                <p class="lead">For my final production, I decided to fully embrace the role of a Technical Director, using the opportunity to explore the field and put my technical skills into practice in a production environment.</p>
+            </div>
+
+            <figure class="video">
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/1240219414?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="fullscreen" title="Production 3 breakdown reel"></iframe>
+                </div>
+            </figure>
+
+            <section>
+                <h2>Overview</h2>
+                <p>I started Production 3 interested in Technical Direction, but I wasn’t sure what the job actually involved. I understood it primarily as solving technical problems, developing tools, and optimizing production pipelines to improve efficiency.</p>
+                <p>To explore this idea in a school context, I drafted ideas to propose for Production 3 across which my main focus was communicating complex technical concepts clearly to non-technical artists.</p>
+                <div class="media auto">
+                    <figure class="shot">
+                        <picture>
+                            <img src="pictures/TechnicalDirectingPillars.png" alt="The three pillars I have set out for the semester">
+                        </picture>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- ============ Tool development (split in two) ============ -->
+            <section id="tool">
+                <h2>Profiler Assistant</h2>
+                <p>For tool development, I chose to explore a Maya Profiler Assistant. Maya's Profiler provides detailed information about what happens during scene evaluation, but interpreting this data can be difficult without technical knowledge. I wanted to investigate whether I could create a tool that would identify the main performance contributors and present them in a way that would help artists understand where a scene was slowing down.</p>
+                <p>I started by writing a script to extract profiler events, including their names, categories and execution times, and sort them by duration. I then tested this approach on a real, slow Maya scene. However, simply listing the longest events wasn't enough. Many events had generic names that told an artist very little, and individual events didn't necessarily represent the actual cause of a performance problem.</p>
+            </section>
+
+            <section>
+                <h2>Making sense of the data</h2>
+                <p>This led me to investigate how to group related events, compare their contribution across multiple frames, and distinguish between evaluation and rendering bottlenecks. I also explored how to present the results through a Maya interface, including a chart of the main contributors and ways to identify specific nodes in the scene.</p>
+                <p>As I worked with real profiler data, I discovered that interpreting it was more complicated than simply finding the events with the longest execution times. For example, Maya performs some operations in parallel, meaning that adding their durations together can give a misleading picture of the actual time spent. I had to reconsider my analysis approach and investigate how to account for overlapping events.</p>
+                <p>Although I did not complete the full tool, this exploration changed how I approached tool development.</p>
+                <aside class="takeaway">
+                    <span class="label">Takeaway</span>
+                    <p>My initial focus had been on extracting and processing the data, but I increasingly had to consider whether the results were meaningful, accurate and actionable for an artist.</p>
+                </aside>
+                <!-- TODO: check this link -->
+                <p><a href="profilerassistant.html">See the Profiler Assistant page for the technical breakdown.</a></p>
+            </section>
+
+            <!-- ============ Technical support ============ -->
+            <section>
+                <h2>Technical Support</h2>
+                <p>I also provided technical assistance to CG students by visiting their classes and creating a Discord server where they could contact me with questions.</p>
+            </section>
+
+            <section id="exhibition">
+                <h2>Software for exhibition</h2>
+                <p>One of the clearest examples of this was developing software for a classmate's exhibition. Understanding her artistic intention allowed me to suggest alternative approaches and make technical decisions that supported the experience she wanted to create. However, the solution also developed through her feedback. We tested the software together and adjusted it based on how the comments appeared when projected onto the sculpture.</p>
+                <aside class="takeaway">
+                    <span class="label">Takeaway</span>
+                    <p>Technical assistance is not simply about implementing the requested solution. It requires understanding what the artist is trying to achieve and working with them to find an approach that supports it.</p>
+                </aside>
+                <!-- TODO: check this link -->
+                <p><a href="exhibition-software.html">See the exhibition software project for a technical breakdown.</a></p>
+            </section>
+
+            <section id="support">
+                <h2>First-Year Disconnect</h2>
+                <p>However, I did not have the same established relationship with the first-year students. None of them approached me for help. I had assumed that making myself available through class visits and Discord was enough, but they still had to recognize that they had a problem, see me as someone who could help, and feel comfortable approaching someone they barely knew.</p>
+                <aside class="takeaway">
+                    <span class="label">Takeaway</span>
+                    <p>Simply providing a way to contact me wasn't enough to make technical support accessible.</p>
+                </aside>
+            </section>
+
+            <section>
+                <h2>How I work best</h2>
+                <p>It also made me notice something about how I work best with other people. When I am physically present in the animation room, I often hear conversations or notice someone struggling and can offer help as the problem emerges.</p>
+                <p>The first-year students rarely worked there, while I had more opportunities to interact with second- and third-year students in person. Being present while artists work allows me to recognize when someone needs help before they explicitly ask for it.</p>
+                <aside class="takeaway">
+                    <span class="label">Takeaway</span>
+                    <p>Fixing the problem is only part of technical support. The conversation around it matters too, because it builds the trust that makes someone willing to ask.</p>
+                </aside>
+            </section>
+
+            <!-- ============ Workshop (split in two) ============ -->
+            <section id="workshop">
+                <h2>Workshop</h2>
+                <p>Finally, I conducted a two-part workshop on production efficiency for first- and second-year CG students and collected feedback on its clarity and usefulness.</p>
+                <p>The workshop feedback challenged my assumption that only new information is useful. The second-year students finding the workshop useful made me reconsider how a clearer explanation, a different perspective, or practical resources can still add value, even when someone already knows a concept.</p>
+
+                <p class="callout">"I got to learn a lot Of valuable stuff that was mentioned. I Will probably be going back to the presentation a lot. was very insightful."</p>
+            </section>
+
+            <section>
+                <h2>Did they use it?</h2>
+                <p>However, six out of eleven students had not used any of the resources, and two could not apply anything they had learned to their production. This made me question the relationship between understanding information and actually using it. Good information may not fit a particular production, and changing an established workflow takes effort.</p>
+                <p>I also realized that my resources favored Maya, Notion, and 3D, reflecting my own expertise and the areas I understand best. While I do not need to support every workflow, I should remain aware of how my expertise shapes the support I provide.</p>
+                <aside class="takeaway">
+                    <span class="label">Takeaway</span>
+                    <p>I cannot determine for sure from the feedback why students did or did not apply the material, since I don’t know their specific production contexts. But, it raised an important question for my future practice: What happens between understanding information and actually using it?</p>
+                </aside>
+            </section>
+
+            <section id="efficiency">
+                <h2>What Changed About My Understanding</h2>
+                <p>While the workshop and technical assistance challenged how I understood communication, other experiences challenged my understanding of efficiency itself.</p>
+                <p>I had been treating efficiency as inherently positive, focusing on removing repetitive work and solving technical problems. However, my peer’s project showed me that unintended results and mistakes can become artistically meaningful, and that the process itself can contribute to the work’s message. Similarly, a talk about AI tools in animation made me question whether excessive automation could remove experimentation, problem-solving, and discovery.</p>
+                <aside class="takeaway">
+                    <span class="label">Takeaway</span>
+                    <p>Both experiences showed me that I cannot always know in advance which difficulties are unnecessary obstacles and which can add to the creative process. What am I potentially removing by automating a process and focusing too much on efficiency?</p>
+                </aside>
+            </section>
+
+            <!-- ============ Recap (optional: delete this section if you don't want it) ============ -->
+            <section class="recap">
+                <h2>In short</h2>
+                <ul>
+                    <li><a href="#tool">Tool:</a> Finding performance bottlenecks isn't just a matter of extracting data. I had to question whether my interpretation of that data was actually reliable and useful to an artist.</li>
+                    <li><a href="#exhibition">Exhibition:</a> Good technical assistance involves more than solving the technical problem. It means understanding the artistic intention and adapting the solution through collaboration.</li>
+                    <li><a href="#support">Support:</a> Making support available doesn't automatically make it accessible. Trust and familiarity influence whether someone feels comfortable asking for help.</li>
+                    <li><a href="#workshop">Workshop:</a> Information being clear and useful doesn't mean people will apply it. There is a gap between understanding something and incorporating it into their workflow.</li>
+                    <li><a href="#efficiency">Efficiency:</a> Optimizing a process isn't always the same as improving it. Some unexpected difficulties or mistakes can become part of the creative process, and removing them might also remove something valuable.</li>
+                </ul>
+            </section>
+
+            <!-- ============ Final reflection ============ -->
+            <section>
+                <div class="reflection">
+                    <h2>What did I learn</h2>
+
+                    <h3>Communication isn't delivered</h3>
+                    <p>I learned that communication is not something you design and then deliver. It develops through the other person's response.</p>
+                    <p>I went into this production thinking that if I understood the problem, I could prepare the appropriate support and, if I communicated it clearly, the artists would use it. Production 3 kept disrupting this sequence. My tool, workshop, and technical assistance showed me that I cannot predict everything: understanding information is not the same as using it, and my resources work differently for different people. Even when I understand a technical problem, I still need to consider what an artist actually needs to see and understand.</p>
+
+                    <h3>Where the responsibility sits</h3>
+                    <p>These experiences made me question how much responsibility I had placed on myself to be clear, accessible, and useful. I had understood that communication involves two people, but I had not fully considered how much the other person's response shapes the communication itself. Making myself available, preparing useful resources, and explaining something clearly are not enough on their own. I also need to understand how the other person responds and what that tells me about the support I provide.</p>
+
+                    <p class="closing">In my praxis, I shouldn't think of myself as a broadcaster, but as a partner in a feedback loop.</p>
+                </div>
+            </section>
+
+             <nav class="pager" aria-label="Previous and next project">
+                <a class="prev" href="pb4p.html" rel="prev">
+                    <span class="dir">← Previous project</span>
+                    <span class="name">Pencils B4 Pixels</span>
+                </a>
+                <a class="next" href="excited.html" rel="next"> 
+                    <span class="name">Excited Workshops</span>
+                    <span class="dir">Next project →</span>
+                </a>
+            </nav>
+
+            <aside class="more" aria-labelledby="more-title">
+                <h2 id="more-title">More projects</h2>
+                <ul class="more-list">
+
+                </ul>
+                <a class="all-work" href="/Projects.html">See all projects</a>
+            </aside>
+        </main>
+
+        <footer class="site-footer">
+            <p class="looking">Open to junior technical director and rigging roles.</p>
+            <nav class="footer-links" aria-label="Footer">
+                <a href="mailto:palma.v.karsai@gmail.com">Email</a>
+                <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">LinkedIn</a>
+            </nav>
+            <p class="copy"> <span id="year">2026</span> Pálma Karsai</p>
+        </footer>
+    </div>
+
+    <script src="/header.js"></script>
 </body>
 </html>
