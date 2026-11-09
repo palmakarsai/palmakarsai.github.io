@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title> Digital Superego — Pálma Karsai | Junior TD</title>
+
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="stylesheet" href="/work/shared_workpages.css">
+
+    <style>
+        /* palette for this project only */
+        :root {
+            --highlight: #d87966;
+            --highlight-hover: #444d67;
+            --font: #bac6de;
+            --card: #444d67;
+        }
+
+        .media.auto .shot img {
+            aspect-ratio: auto;
+            object-fit: contain;
+            height: auto;
+            padding: none;
+        }
+
+        .banner::before{
+            content: none;
+        }
+    </style>
+</head>
+<body data-bg-view="cam4">
+    <canvas id="bg"></canvas>
+
+    <header class="header" id="myHeader">
+        <div class="title">
+            <a href="/homepage.html"><h1 id="page-title">Pálma Karsai | Junior TD</h1></a>
+         </div>
+        <nav class="nav">
+            <a href="/Projects.html">Projects</a>
+            <a href="/homepage.html#about">About Me</a>
+            <a target="_blank" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">Contact</a>
+        </nav>
+    </header>
+
+    <div class="page">
+        <div class="banner">
+            <picture>
+                <img src="banners/digitalsuperego_banner.png" width="2100" height="800"
+                     alt="">
+            </picture>
+            <div class="banner-title">
+                <div class="banner-card">
+                    <a class="back" href="/Projects.html">← All projects</a>
+                    <h1>Digital Superego Software</h1>
+                    <p class="subtitle">Developing Software for an exhibition</p>
+                    <dl class="facts">
+                        <div>
+                            <dt>Role</dt>
+                            <dd>Scripting, designing </dd>
+                        </div>
+                        <div>
+                            <dt>Team</dt>
+                            <dd>Team of 2</dd>
+                        </div>
+                        <div>
+                            <dt>Timeline</dt>
+                            <dd>Spring semester 2026</dd>
+                        </div>
+                        <div>
+                            <dt>Tools</dt>
+                            <dd> Python, QT designer</dd>
+                        </div>
+                        <div>
+                            <dt>Status</dt>
+                            <dd>Finished</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <div class="intro">
+                <p class="lead">For Production 3, I helped a classmate bring her exhibition concept to life: a silicone face with TikTok videos and comments projected onto it. I was responsible for developing the software behind this interaction and helping prepare the technical setup for the exhibition.</p>
+            </div>
+
+
+            <section>
+                <h2>Overview</h2>
+                <p>During Production 3, one of my classmates approached me for technical assistance with her exhibition. Her concept involved projecting TikTok content and online comments onto a silicone face. Initially, she considered scraping comments from TikTok videos, but given my limited experience with this and the time available, I suggested an alternative: allowing visitors to enter their own comments, which would then appear as part of the projection.</p>
+            </section>
+
+            <section>
+                <h2>Designing the setup</h2>
+                <p>I proposed a two-display setup to separate the projected content from visitor interaction. One display handled the TikTok content and comments, while the second allowed visitors to enter comments through a Wacom tablet. Using a tablet rather than a regular monitor meant that the input device could be laid flat, keeping it from obstructing the viewing space around the sculpture. My classmate designed the visual appearance of the comments interface, which I recreated in HTML and integrated into the setup.</p>
+            </section>
+
+            <section>
+                <h2>Module Overview</h2>
+                <p>My initial plan. The only change was to replace TikTok's automatic scrolling with scrolling handled by `main.py`, allowing it to happen more frequently and at random intervals to imitate a person browsing.</p>
+                <div class="media auto">
+                    <figure class="shot">
+                        <picture>
+                            <img src="pictures/DigitalSuperegoApp_Plan.jpg" alt="">
+                        </picture>
+                    </figure>
+                </div>
+            </section>
+            
+            <section>
+                <h2>Team work makes the dream work</h2>
+                <p>We tested the software together and adjusted the presentation based on how it looked when projected onto the face. This included experimenting with the size and boldness of the comments to make them readable, as well as changing where they first appeared. Initially, comments spawned around the nose, where they were difficult to read, so I moved their starting position towards the forehead.</p>
+            </section>
+
+            <section>
+                <h2>Troubleshooting</h2>
+                <p>During our first classroom demonstration, the software failed because TikTok had changed something internally, breaking the way I accessed its interface buttons. I had to rework this part to make it more reliable and easier to fix if it failed again during the exhibition. I also considered how the software would be operated in practice. Since several applications and processes had to be started in a specific order, I compiled them into a single launcher executable.</p>
+                <p>Beyond the software itself, I helped prepare the exhibition setup, including troubleshooting the NDI projection setup and adjusting the room conditions. On the exhibition day, everything worked as expected, and visitors interacted with the installation.</p>
+            </section>
+
+            <section>
+                <div class="reflection">
+                    <h2>What did I learn</h2>
+                    <p>Looking back, I see that my contribution went beyond implementing what my classmate initially envisioned. Understanding her artistic intention allowed me to suggest alternative approaches and make technical decisions that supported the experience she wanted to create. At the same time, her feedback during testing shaped the software in ways I would not have considered on my own. This showed me how technical support can become a collaborative process, where both the artist's understanding of their work and my technical knowledge contribute to the solution.</p>
+                    
+                </div>
+            </section>
+
+            <nav class="pager" aria-label="Previous and next project">
+                <a class="prev" href="prod3.html" rel="prev">
+                    <span class="dir">← Previous project</span>
+                    <span class="name">Production 3</span>
+                </a>
+                <a class="next" href="profilerassistant.html" rel="next"> 
+                    <span class="name">Profiler Assistant</span>
+                    <span class="dir">Next project →</span>
+                </a>
+            </nav>
+
+        </main>
+
+        <footer class="site-footer">
+            <p class="looking">Open to junior technical director and rigging roles.</p>
+            <nav class="footer-links" aria-label="Footer">
+                <a href="mailto:palma.v.karsai@gmail.com">Email</a>
+                <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/p%C3%A1lma-karsai-70b3a9298/">LinkedIn</a>
+            </nav>
+            <p class="copy"> <span id="year">2026</span> Pálma Karsai</p>
+        </footer>
+    </div>
+
+    <script src="/header.js"></script>
+</body>
+</html>
