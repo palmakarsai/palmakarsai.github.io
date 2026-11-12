@@ -17,8 +17,14 @@
             --card: #444d67;
         }
 
-        .media.auto {
-            grid-column: 2;
+        /* desktop: image sits in the right-hand column, under the text */
+        @media (min-width: 701px) {
+            .media.auto { grid-column: 2; }
+        }
+
+        /* phone: single column, image full width */
+        @media (max-width: 700px) {
+            .media.auto { grid-template-columns: 1fr; }
         }
 
         .media.auto .shot img {
@@ -110,6 +116,7 @@
                 <h2>Profiler Assistant</h2>
                 <p>For tool development, I chose to explore a Maya Profiler Assistant. Maya's Profiler provides detailed information about what happens during scene evaluation, but interpreting this data can be difficult without technical knowledge. I wanted to investigate whether I could create a tool that would identify the main performance contributors and present them in a way that would help artists understand where a scene was slowing down.</p>
                 <p>I started by writing a script to extract profiler events, including their names, categories and execution times, and sort them by duration. I then tested this approach on a real, slow Maya scene. However, simply listing the longest events wasn't enough. Many events had generic names that told an artist very little, and individual events didn't necessarily represent the actual cause of a performance problem.</p>
+                <p><a href="profilerassistant.html">See the Profiler Assistant page for the technical breakdown.</a></p>
             </section>
 
             <section>
@@ -121,7 +128,6 @@
                     <span class="label">Takeaway</span>
                     <p>My initial focus had been on extracting and processing the data, but I increasingly had to consider whether the results were meaningful, accurate and actionable for an artist.</p>
                 </aside>
-                <p><a href="profilerassistant.html">See the Profiler Assistant page for the technical breakdown.</a></p>
             </section>
 
             <!-- ============ Technical support ============ -->

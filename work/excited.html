@@ -16,8 +16,15 @@
             --font: #d9f9fa;
             --card: #b19eab;
         }
-        .media.auto {
-            grid-column: 2;
+        
+        /* desktop: image sits in the right-hand column, under the text */
+        @media (min-width: 701px) {
+            .media.auto { grid-column: 2; }
+        }
+
+        /* phone: single column, image full width */
+        @media (max-width: 700px) {
+            .media.auto { grid-template-columns: 1fr; }
         }
 
         .media.auto .shot img {
@@ -50,7 +57,7 @@
         </picture>
         <div class="banner-title">
             <div class="banner-card">
-                <a class="back" href="index.html">← All projects</a>
+                <a class="back" href="/Projects.html">← All projects</a>
                 <h1>Excited Workshops</h1>
                 <p class="subtitle">Technical support, workshop organizing and team leadership at Nord University</p>
                 <dl class="facts">

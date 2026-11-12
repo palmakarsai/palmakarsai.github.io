@@ -23,6 +23,15 @@
             height: auto;
             padding: none;
         }
+
+        @media (max-width: 700px) {
+            .media.auto {
+                grid-template-columns: 1fr;                /* one picture = full width, not half */
+                margin-inline: calc(-1 * var(--s2));       /* use main's side padding too */
+            }
+            .media.auto .shot { overflow-x: auto; }        /* swipe sideways inside the diagram */
+            .media.auto .shot img { min-width: 36rem; }    /* keeps the diagram text readable */
+        }
     </style>
 </head>
 
