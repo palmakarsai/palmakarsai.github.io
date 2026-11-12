@@ -150,6 +150,12 @@
             .sub { grid-template-columns: minmax(0, 1fr); }
             .sub > h3 { grid-column: 1; margin-bottom: var(--s1); }
             .sub > .body { grid-column: 1; }
+            .introduction { font-size: 2.2rem; padding: 4rem 1.25rem 3rem; line-height: 1.3; }
+            .introduction #changingword {
+                display: block;        /* word starts on its own line under "and I love" */
+                min-height: 2.6em;     /* room for 2 lines (2 x 1.3), so wrapping never moves anything */
+            }
+            .site-footer { padding-inline: 0; }
         }
 
         @media (prefers-reduced-motion: reduce) {

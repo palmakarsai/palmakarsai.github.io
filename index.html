@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Palma Karsai - Technical Director</title>
-
+
+    <link rel="stylesheet" href="/shared.css">
 
     <style>
       .introduction {
@@ -337,18 +338,72 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Phones: story goes to the top so it doesn't collide with the centred chat */
+    /* story to bottom on phones */
     @media (max-width: 767px) {
-      .story {
-        top: 80%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 85vw;
-        text-align: center;
-        font-size: 0.8rem;
-      }
-      .view-chat { width: min(300px, 90vw); }
-    }
+
+  /* --- header: once the intro starts, hide the nav and shrink the title (still clickable) --- */
+  body:has(.welcome.started) .nav { display: none; }
+  body:has(.welcome.started) .header { padding-block: 0.4rem; }
+  body:has(.welcome.started) .header .title { min-height: 2rem; }
+  body:has(.welcome.started) .header .title h1 { font-size: 0.95rem; }
+
+  /* --- welcome box --- */
+  .welcome { padding: 4rem 1.5rem; gap: 1.1rem; }
+  .welcometext,
+  .start button { font-size: 1.5rem; }
+  .skip a { font-size: 1.1rem; }
+
+  /* --- overlay layer: dvh so iOS/Android toolbars don't hide the bottom --- */
+  .container { height: 100dvh; }
+
+  /* --- story + hint: pinned to the bottom, inline top/left overridden --- */
+  .container .story {
+    top: auto !important;
+    left: 50% !important;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 2.5rem);
+    transform: translateX(-50%);
+    width: min(86vw, 24rem);
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: #e8e8e8;
+  }
+  .hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 2.5rem); }
+
+  /* --- chat: small, top-right under the header, pops out of the corner --- */
+  .view-chat {
+    top: calc(3.5rem + env(safe-area-inset-top, 0px));
+    left: auto;
+    right: 0.75rem;
+    width: min(15rem, 62vw);
+    height: 11.5rem;
+    border-radius: 6px;
+    transform: scale(0);
+    transform-origin: top right;
+  }
+  .view-chat.revealed { transform: scale(1); }
+
+  .chat-header { padding: 4px 10px 3px; font-size: 0.8rem; }
+  .chat-window { padding: 8px 10px 6px; }
+  .admin-message,
+  .chat-window .message { font-size: 0.7rem; padding: 6px 10px 7px; }
+  .compose-box { padding: 6px 8px; gap: 6px; }
+  .compose-box .user-message { font-size: 0.68rem; line-height: 1.25; }
+  .compose-box button svg { width: 17px; height: 17px; }
+
+  /* --- final "Hi I'm Pálma" screen --- */
+  .view-text[data-view="4"].active {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+  .introduction {
+    font-size: 2rem;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+}
 
     </style>
     <style>
@@ -369,8 +424,6 @@
       opacity: 0;
     }
     </style>
-    <script type="module" crossorigin src="/assets/index-DekT4jmX.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CRFrNN8N.css">
   </head>
   <body class="landing">
 
@@ -539,6 +592,7 @@
           new MutationObserver(switchWhenVisible)
             .observe(introView, { attributes: true, attributeFilter: ['class'] });
           switchWhenVisible();   // in case it's already active when this script runs
-      </script>
+      </script>
+       <script type="module" src="/main.js"></script>
   </body>
 </html>

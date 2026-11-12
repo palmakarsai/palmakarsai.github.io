@@ -153,15 +153,6 @@ body::before {
 .title:focus-within h1 {
     transform: scale(1.2);               /* same effect as 1.5rem to 1.8rem */
 }
-
-
-@media (max-width: 700px) {
-    #bg { background-image: url("/banners/bg_mobile.webp"); }
-
-    .title h1 { white-space: normal; }   /* on phones let it wrap instead of overflowing */
-    
-}
-
 /* when the header is shrunk, keep the same proportions */
 .header.compact .title:hover h1,
 .header.compact .title:focus-within h1 {
@@ -188,9 +179,47 @@ body::before {
 }
 
 @media (max-width: 700px) {
-    .header { grid-template-columns: 1fr; grid-template-rows: auto; }
+    #bg {
+        background-image: url("/banners/bg_mobile.webp");  
+       /* background-size: auto 150%;       /* >100% = zoomed in; raise it to crop more sky */
+      /*  background-position: 35% 100%;    /* x = which part of the scene to keep, y = 100% pins the bottom */
+    }
+
+    .header,
+    .header.compact {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        padding-block: 0.4rem;
+        gap: 0.25rem;
+        transition: grid-template-rows 300ms, padding 300ms, margin-top 300ms;
+    }
+    /* header.js adds .hide on scroll down: it slides up and .page grows into its space */
+    .header.hide { margin-top: calc(-1 * var(--hh, 5.5rem)); }
+
     .nav { grid-template-rows: auto; }
-    .title, .nav a { height: auto; min-height: 2.5rem; }
+    .title, .nav a { height: auto; min-height: 2.25rem; }
+
+    .title h1 { white-space: normal; font-size: 1.2rem; }
+    .header.compact .title h1 { font-size: 1rem; }
+    .nav a { font-size: 0.95rem; }
+
+    /* no grow-on-hover: it sticks after a tap on touch screens */
+    .title:hover,
+    .title:focus-within,
+    .nav a:hover,
+    .nav a:focus-visible { height: auto; }
+    .title:hover h1,
+    .title:focus-within h1 { transform: none; }
+    .header.compact .title:hover h1,
+    .header.compact .title:focus-within h1 { font-size: 1rem; }
+    .nav a:hover,
+    .nav a:focus-visible { font-size: 0.95rem; }
+}
+
+/* the line under each nav item and the title, in case it's being overridden too */
+.header .nav a,
+.header .title {
+    border-bottom: 2px solid rgba(33, 40, 66, 0.7);
 }
 
 @media (prefers-reduced-motion: reduce) {

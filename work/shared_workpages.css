@@ -361,15 +361,44 @@ section > figure.single {
 /* ---------- Mobile ---------- */
 @media (max-width: 700px) {
     :root { --gutter: var(--s2); }
+    body { font-size: 1rem; line-height: 1.6; }
     main { padding: var(--s2) var(--s2) var(--s4); }
+
+    h2 { font-size: 1.4rem; }
+    .lead { font-size: 1.1rem; }
+
     section { grid-template-columns: minmax(0, 1fr); row-gap: 0; margin-top: var(--s4); }
     section > h2,
     section > *:not(h2) { grid-column: 1; grid-row: auto; }
     section > h2 { margin-bottom: var(--s2); }
+
+    /* banner */
+    .banner { --banner-h: 15rem; }
+    .banner-card { margin-top: calc(-1 * var(--s4)); padding: var(--s2); }
+    .banner-card h1 { font-size: 1.8rem; }
+    .subtitle { font-size: 1.05rem; }
+    .facts { grid-template-columns: 1fr 1fr; gap: var(--s2); }
+
+    /* media */
     .media.cols-2 { grid-template-columns: 1fr; }
     .media.auto   { grid-template-columns: 1fr 1fr; }
-    .hero { aspect-ratio: 4 / 3; }
-    .banner-card { margin-top: calc(-1 * var(--s4)); padding: var(--s2); }
-    .pager { grid-template-columns: 1fr; }
+    .shot.wide img { aspect-ratio: 16 / 9; }
+    .video-wrapper iframe { margin: 0; }   /* the 2rem margin breaks the absolute fill */
+
+    .hero { aspect-ratio: 4 / 3; margin: var(--s3) 0; }
+    .hero .play { width: 3.5rem; height: 3.5rem; }
+    .hero .poster-title { font-size: 1.1rem; }
+
+    .callout { font-size: 1.05rem; }
+    .reflection { padding: var(--s2); }
+
+    /* pager + more projects + footer */
+    .pager { grid-template-columns: 1fr; margin-top: var(--s4); }
     .pager .next { text-align: left; }
+    .pager .name { font-size: 1.2rem; }
+    .more-list { grid-template-columns: 1fr 1fr; gap: var(--s2) var(--s1); }
+    .site-footer { padding: var(--s2) var(--s2) var(--s3); }
+    .footer-links { gap: var(--s1) var(--s2); }
+
+    .back { padding: 0.4rem 0; }   /* easier to tap */
 }

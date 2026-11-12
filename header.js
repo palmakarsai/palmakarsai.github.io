@@ -29,6 +29,53 @@
         ro.observe(page);
         Array.prototype.forEach.call(page.children, function (c) { ro.observe(c); });
     }
+
+        /* ---------- mobile: hide the header on scroll down, show it on scroll up ---------- */
+    var mobile = matchMedia("(max-width: 700px)");
+    var lastY = page.scrollTop;
+    var STEP = 8;   // ignore tiny movements so it doesn't flicker
+
+    var lockUntil = 0;
+
+    function autoHide() {
+        var y = page.scrollTop;
+
+        if (!mobile.matches || y < 10) {          // always visible at the top and on desktop
+            header.classList.remove("hide");
+            lastY = y;
+            return;
+        }
+        // collapsing the header resizes .page, which can nudge scrollTop and
+        // fire scroll events; ignore those while the transition runs
+        if (performance.now() < lockUntil) return;
+
+        var dy = y - lastY;
+        if (Math.abs(dy) < STEP) return;
+
+        var hide = dy > 0;                        // down = hide, up = show
+        if (header.classList.contains("hide") !== hide) {
+            header.classList.toggle("hide", hide);
+            lockUntil = performance.now() + 350;
+            setTimeout(function () { lastY = page.scrollTop; }, 360);
+        } else {
+            lastY = y;
+        }
+    }
+    
+    page.addEventListener("scroll", autoHide, { passive: true });
+    mobile.addEventListener("change", autoHide);
+
+    // keyboard users tabbing into the nav always get the header back
+    header.addEventListener("focusin", function () { header.classList.remove("hide"); });
+
+    // tells the CSS how much room to leave at the top of .page
+    function setHeaderHeight() {
+        document.documentElement.style.setProperty("--hh", header.offsetHeight + "px");
+    }
+    setHeaderHeight();
+    addEventListener("resize", setHeaderHeight);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(setHeaderHeight);
+    if ("ResizeObserver" in window) new ResizeObserver(setHeaderHeight).observe(header);
 })();
 
 var projects = [
