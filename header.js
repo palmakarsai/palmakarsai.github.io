@@ -97,3 +97,12 @@ if (list) {
                    '</span><span class="desc">' + p.desc + '</span></a></li>';
         }).join("");
 }
+
+(function () {
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.defer = true;
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "2ee75dd101a444808e3200968ff5a75a"}');
+  document.head.appendChild(s);
+})();
